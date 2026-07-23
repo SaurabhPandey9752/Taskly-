@@ -8,8 +8,15 @@
   <meta name="description" content="Even Taskly takes a Sunday. We'll be back before yours." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --gold: #B8873A;
+      --gold-light: #C9A878;
+      --champagne: #E7CDA0;
+      --ink: #161311;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body { height: 100%; }
@@ -18,10 +25,9 @@
       font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0a0806;
       color: #e9e5df;
-      /* warm amber glow behind the logo, fading to near-black */
       background-image:
-        radial-gradient(58% 52% at 50% 40%, rgba(126, 88, 40, 0.30) 0%, rgba(64, 45, 22, 0.10) 42%, rgba(10, 8, 6, 0) 72%),
-        radial-gradient(140% 120% at 50% 40%, #17120c 0%, #0a0806 55%, #060504 100%);
+        radial-gradient(56% 50% at 50% 38%, rgba(126, 88, 40, 0.30) 0%, rgba(64, 45, 22, 0.10) 42%, rgba(10, 8, 6, 0) 72%),
+        radial-gradient(140% 120% at 50% 38%, #17120c 0%, #0a0806 55%, #060504 100%);
       min-height: 100dvh;
       display: flex;
       align-items: center;
@@ -36,81 +42,145 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      max-width: 720px;
+      width: 100%;
+      max-width: 620px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .brand .logo {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
-
+    /* ── Brand ── */
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand .logo { height: 40px; width: auto; display: block; }
     .brand .word {
-      font-size: clamp(40px, 8vw, 54px);
+      font-size: clamp(38px, 7vw, 50px);
       font-weight: 500;
       letter-spacing: -0.02em;
       color: #ffffff;
       line-height: 1;
     }
-
     .brand .flag {
-      width: 30px;
-      height: auto;
-      display: block;
-      margin-left: 5px;
-      align-self: center;
-      border-radius: 2px;
+      width: 30px; height: auto; display: block;
+      margin-left: 5px; align-self: center; border-radius: 2px;
       box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.14), 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .divider {
-      width: 60px;
-      height: 1px;
-      margin: 32px 0 30px;
-      background: linear-gradient(90deg, rgba(200, 150, 80, 0) 0%, rgba(214, 165, 96, 0.85) 50%, rgba(200, 150, 80, 0) 100%);
+      width: 60px; height: 1px; margin: 30px 0 26px;
+      background: linear-gradient(90deg, rgba(200,150,80,0) 0%, rgba(214,165,96,0.85) 50%, rgba(200,150,80,0) 100%);
     }
 
-    .tagline {
-      font-size: clamp(21px, 3.4vw, 30px);
-      font-weight: 500;
-      line-height: 1.45;
-      letter-spacing: -0.01em;
-      color: #cbc4ba;
-      max-width: 16em;
+    /* ── Headline ── */
+    .headline {
+      font-size: clamp(25px, 4.4vw, 40px);
+      font-weight: 600;
+      line-height: 1.28;
+      letter-spacing: -0.015em;
+    }
+    .headline .l1 { color: #efe9df; }
+    .headline .l2 {
+      background: linear-gradient(92deg, #EAD6AC 0%, #D6AE6E 55%, #C69355 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #D6AE6E;
     }
 
-    .contact {
-      margin-top: 44px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .contact .label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #6a625a;
-    }
-
-    .email {
-      font-size: 15px;
+    .subtext {
+      margin-top: 18px;
+      font-size: clamp(14px, 1.9vw, 16px);
       font-weight: 400;
+      color: #9c948a;
+      letter-spacing: 0.005em;
+    }
+
+    /* ── Notify form ── */
+    .notify {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 9px 9px 18px;
+      border-radius: 15px;
+      background: rgba(28, 21, 13, 0.55);
+      border: 1px solid rgba(184, 135, 58, 0.34);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2) inset,
+        0 18px 45px -20px rgba(0, 0, 0, 0.8),
+        0 0 40px -12px rgba(184, 135, 58, 0.25);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .notify:focus-within {
+      border-color: rgba(201, 168, 120, 0.6);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2) inset,
+        0 18px 45px -20px rgba(0, 0, 0, 0.8),
+        0 0 42px -8px rgba(184, 135, 58, 0.4);
+    }
+    .notify .mail-icon {
+      flex: none; width: 19px; height: 19px; color: var(--gold-light); opacity: 0.9;
+    }
+    .notify input {
+      flex: 1 1 auto;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #eae4da;
+      font-family: inherit;
+      font-size: 15px;
       letter-spacing: 0.01em;
-      color: #b7ad9f;
+    }
+    .notify input::placeholder { color: #8b8278; }
+    .notify button {
+      flex: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: filter 0.18s ease, transform 0.05s ease;
+    }
+    .notify button:hover { filter: brightness(1.06); }
+    .notify button:active { transform: translateY(1px); }
+
+    /* success state */
+    .done {
+      margin-top: 30px;
+      font-size: 16px;
+      color: var(--gold-light);
+      font-weight: 500;
+      min-height: 24px;
+    }
+    .done .check { color: #c9a878; margin-right: 6px; }
+
+    /* ── Footer email ── */
+    .contact {
+      margin-top: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #8c8069;
       text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       transition: color 0.2s ease;
     }
+    .contact svg { width: 15px; height: 15px; }
+    .contact:hover { color: var(--gold-light); }
 
-    .email:hover { color: #d6a560; }
+    @media (max-width: 520px) {
+      .notify { flex-wrap: wrap; padding: 14px; gap: 12px; }
+      .notify input { flex-basis: 100%; text-align: center; }
+      .notify button { width: 100%; }
+      .notify .mail-icon { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -118,7 +188,6 @@
     <div class="brand">
       <img class="logo" src="data:image/png;base64,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" alt="Taskly" />
       <span class="word">taskly</span>
-      <!-- Canadian flag, inline SVG at the correct 1:2 proportions -->
       <svg class="flag" viewBox="0 0 640 320" role="img" aria-label="Canada">
         <rect width="640" height="320" fill="#fff"/>
         <rect width="160" height="320" fill="#d52b1e"/>
@@ -131,12 +200,75 @@
 
     <div class="divider"></div>
 
-    <p class="tagline">Even Taskly takes a Sunday. We'll be back before yours.🌴</p>
+    <h1 class="headline">
+      <span class="l1">Even Taskly takes a Sunday.</span><br />
+      <span class="l2">We'll be back before yours.</span> 🌴
+    </h1>
 
-    <div class="contact">
-      <span class="label">Get in touch</span>
-      <a class="email" href="mailto:care@taskly.ca">care@taskly.ca</a>
-    </div>
+    <p class="subtext">Leave your email and we'll notify you when we're back.</p>
+
+    <form class="notify" id="notifyForm" novalidate>
+      <svg class="mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+        <path d="M3 6l9 6 9-6"/>
+      </svg>
+      <input type="email" id="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+      <button type="submit">Notify Me</button>
+    </form>
+
+    <div class="done" id="done" role="status" aria-live="polite"></div>
+
+    <a class="contact" href="mailto:care@taskly.ca">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+        <path d="M3 6l9 6 9-6"/>
+      </svg>
+      care@taskly.ca
+    </a>
   </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById('notifyForm');
+      var input = document.getElementById('email');
+      var done = document.getElementById('done');
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      var TO = 'care@taskly.ca';
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (input.value || '').trim();
+
+        if (!EMAIL_RE.test(email)) {
+          input.focus();
+          input.style.color = '#e6a58a';
+          input.value = '';
+          input.placeholder = 'Please enter a valid email';
+          return;
+        }
+
+        // No backend on a static page — hand the address to Taskly by opening
+        // the visitor's mail client pre-addressed to care@taskly.ca.
+        var subject = encodeURIComponent('Notify me when Taskly is back');
+        var body = encodeURIComponent(
+          "Hi Taskly team,\n\nPlease notify me when you're back online.\n\nMy email: " + email + "\n\nThanks!"
+        );
+        window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
+
+        // Swap the form for a confirmation.
+        form.style.display = 'none';
+        done.innerHTML = '<span class="check">✓</span> Thanks! We’ll notify <strong>' +
+          email.replace(/[<>&]/g, '') + '</strong> the moment we’re back.';
+      });
+
+      // Reset the error hint as soon as the visitor types again.
+      input.addEventListener('input', function () {
+        input.style.color = '';
+        if (input.placeholder !== 'Enter your email address') {
+          input.placeholder = 'Enter your email address';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
