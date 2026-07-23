@@ -8,13 +8,14 @@
   <meta name="description" content="Even Taskly takes a Sunday. We'll be back before yours." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold: #B8873A;
       --gold-light: #C9A878;
       --champagne: #E7CDA0;
       --ink: #161311;
+      --radius-field: 14px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,7 +23,7 @@
     html, body { height: 100%; }
 
     body {
-      font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0a0806;
       color: #e9e5df;
       background-image:
@@ -34,7 +35,8 @@
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding: 24px;
+      padding: clamp(20px, 5vw, 32px);
+      overflow-x: hidden;
     }
 
     .wrap {
@@ -43,36 +45,51 @@
       align-items: center;
       text-align: center;
       width: 100%;
+      min-width: 0;      /* let it shrink below content width on narrow screens */
       max-width: 620px;
     }
 
-    /* ── Brand ── */
-    .brand { display: flex; align-items: center; gap: 15px; }
-    .brand .logo { height: 40px; width: auto; display: block; }
+    /* ── Brand — scales together across screen sizes ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 2.4vw, 15px);
+    }
+    .brand .logo {
+      height: clamp(30px, 7.6vw, 42px);
+      width: auto;
+      display: block;
+    }
     .brand .word {
-      font-size: clamp(38px, 7vw, 50px);
-      font-weight: 500;
+      font-size: clamp(32px, 8vw, 50px);
+      font-weight: 600;
       letter-spacing: -0.02em;
       color: #ffffff;
       line-height: 1;
     }
     .brand .flag {
-      width: 30px; height: auto; display: block;
-      margin-left: 5px; align-self: center; border-radius: 2px;
+      width: clamp(24px, 5.6vw, 31px);
+      height: auto;
+      display: block;
+      margin-left: clamp(2px, 1vw, 5px);
+      align-self: center;
+      border-radius: 2px;
       box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.14), 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .divider {
-      width: 60px; height: 1px; margin: 30px 0 26px;
+      width: 60px; height: 1px;
+      margin: clamp(22px, 4vw, 30px) 0 clamp(20px, 3.5vw, 26px);
       background: linear-gradient(90deg, rgba(200,150,80,0) 0%, rgba(214,165,96,0.85) 50%, rgba(200,150,80,0) 100%);
     }
 
     /* ── Headline ── */
     .headline {
-      font-size: clamp(25px, 4.4vw, 40px);
-      font-weight: 600;
-      line-height: 1.28;
-      letter-spacing: -0.015em;
+      font-size: clamp(21px, 5.4vw, 40px);
+      font-weight: 700;
+      line-height: 1.26;
+      letter-spacing: -0.02em;
+      max-width: 100%;
     }
     .headline .l1 { color: #efe9df; }
     .headline .l2 {
@@ -84,23 +101,24 @@
     }
 
     .subtext {
-      margin-top: 18px;
-      font-size: clamp(14px, 1.9vw, 16px);
+      margin-top: clamp(14px, 2.4vw, 18px);
+      font-size: clamp(13.5px, 1.9vw, 16px);
       font-weight: 400;
       color: #9c948a;
       letter-spacing: 0.005em;
+      max-width: 34ch;
     }
 
     /* ── Notify form ── */
     .notify {
-      margin-top: 30px;
+      margin-top: clamp(24px, 4vw, 30px);
       width: 100%;
       max-width: 560px;
       display: flex;
       align-items: center;
       gap: 10px;
       padding: 9px 9px 9px 18px;
-      border-radius: 15px;
+      border-radius: var(--radius-field);
       background: rgba(28, 21, 13, 0.55);
       border: 1px solid rgba(184, 135, 58, 0.34);
       box-shadow:
@@ -116,10 +134,17 @@
         0 18px 45px -20px rgba(0, 0, 0, 0.8),
         0 0 42px -8px rgba(184, 135, 58, 0.4);
     }
-    .notify .mail-icon {
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .field .mail-icon {
       flex: none; width: 19px; height: 19px; color: var(--gold-light); opacity: 0.9;
     }
-    .notify input {
+    .field input {
       flex: 1 1 auto;
       min-width: 0;
       background: transparent;
@@ -130,7 +155,7 @@
       font-size: 15px;
       letter-spacing: 0.01em;
     }
-    .notify input::placeholder { color: #8b8278; }
+    .field input::placeholder { color: #8b8278; }
     .notify button {
       flex: none;
       font-family: inherit;
@@ -150,17 +175,18 @@
 
     /* success state */
     .done {
-      margin-top: 30px;
+      margin-top: clamp(24px, 4vw, 30px);
       font-size: 16px;
       color: var(--gold-light);
       font-weight: 500;
       min-height: 24px;
+      max-width: 480px;
     }
     .done .check { color: #c9a878; margin-right: 6px; }
 
     /* ── Footer email ── */
     .contact {
-      margin-top: 26px;
+      margin-top: clamp(22px, 4vw, 30px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -172,14 +198,24 @@
       text-transform: uppercase;
       transition: color 0.2s ease;
     }
-    .contact svg { width: 15px; height: 15px; }
+    .contact svg { width: 15px; height: 15px; flex: none; }
     .contact:hover { color: var(--gold-light); }
 
-    @media (max-width: 520px) {
-      .notify { flex-wrap: wrap; padding: 14px; gap: 12px; }
-      .notify input { flex-basis: 100%; text-align: center; }
-      .notify button { width: 100%; }
-      .notify .mail-icon { display: none; }
+    /* ── Stack the input above the button on narrow screens ── */
+    @media (max-width: 560px) {
+      .notify {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px;
+      }
+      .field {
+        padding: 4px 4px 4px 6px;
+      }
+      .notify button {
+        width: 100%;
+        padding: 13px 24px;
+      }
     }
   </style>
 </head>
@@ -208,11 +244,13 @@
     <p class="subtext">Leave your email and we'll notify you when we're back.</p>
 
     <form class="notify" id="notifyForm" novalidate>
-      <svg class="mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-        <path d="M3 6l9 6 9-6"/>
-      </svg>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+      <div class="field">
+        <svg class="mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+          <path d="M3 6l9 6 9-6"/>
+        </svg>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+      </div>
       <button type="submit">Notify Me</button>
     </form>
 
