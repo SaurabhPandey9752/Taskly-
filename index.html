@@ -13,13 +13,12 @@
     :root {
       --gold: #B8873A;
       --gold-light: #C9A878;
-      --champagne: #E7CDA0;
       --ink: #161311;
       --radius-field: 14px;
+      --wa: #25D366;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html, body { height: 100%; }
 
     body {
@@ -45,181 +44,154 @@
       align-items: center;
       text-align: center;
       width: 100%;
-      min-width: 0;      /* let it shrink below content width on narrow screens */
+      min-width: 0;
       max-width: 620px;
     }
 
-    /* ── Brand — scales together across screen sizes ── */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: clamp(10px, 2.4vw, 15px);
-    }
-    .brand .logo {
-      height: clamp(30px, 7.6vw, 42px);
-      width: auto;
-      display: block;
-    }
+    /* ── Brand ── */
+    .brand { display: flex; align-items: center; gap: clamp(10px, 2.4vw, 15px); }
+    .brand .logo { height: clamp(30px, 7.6vw, 42px); width: auto; display: block; }
     .brand .word {
       font-size: clamp(32px, 8vw, 50px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      line-height: 1;
+      font-weight: 600; letter-spacing: -0.02em; color: #fff; line-height: 1;
     }
     .brand .flag {
-      width: clamp(24px, 5.6vw, 31px);
-      height: auto;
-      display: block;
-      margin-left: clamp(2px, 1vw, 5px);
-      align-self: center;
-      border-radius: 2px;
-      box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.14), 0 2px 8px rgba(0, 0, 0, 0.35);
+      width: clamp(24px, 5.6vw, 31px); height: auto; display: block;
+      margin-left: clamp(2px, 1vw, 5px); align-self: center; border-radius: 2px;
+      box-shadow: 0 0 0 0.5px rgba(255,255,255,.14), 0 2px 8px rgba(0,0,0,.35);
     }
 
     .divider {
       width: 60px; height: 1px;
       margin: clamp(22px, 4vw, 30px) 0 clamp(20px, 3.5vw, 26px);
-      background: linear-gradient(90deg, rgba(200,150,80,0) 0%, rgba(214,165,96,0.85) 50%, rgba(200,150,80,0) 100%);
+      background: linear-gradient(90deg, rgba(200,150,80,0) 0%, rgba(214,165,96,.85) 50%, rgba(200,150,80,0) 100%);
     }
 
     /* ── Headline ── */
     .headline {
       font-size: clamp(21px, 5.4vw, 40px);
-      font-weight: 700;
-      line-height: 1.26;
-      letter-spacing: -0.02em;
-      max-width: 100%;
+      font-weight: 700; line-height: 1.26; letter-spacing: -0.02em; max-width: 100%;
     }
     .headline .l1 { color: #efe9df; }
     .headline .l2 {
       background: linear-gradient(92deg, #EAD6AC 0%, #D6AE6E 55%, #C69355 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: #D6AE6E;
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #D6AE6E;
     }
 
     .subtext {
       margin-top: clamp(14px, 2.4vw, 18px);
-      font-size: clamp(13.5px, 1.9vw, 16px);
-      font-weight: 400;
-      color: #9c948a;
-      letter-spacing: 0.005em;
-      max-width: 34ch;
+      font-size: clamp(13.5px, 1.9vw, 16px); font-weight: 400; color: #9c948a;
+      letter-spacing: 0.005em; max-width: 34ch;
     }
 
     /* ── Notify form ── */
     .notify {
       margin-top: clamp(24px, 4vw, 30px);
-      width: 100%;
-      max-width: 560px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      width: 100%; max-width: 560px;
+      display: flex; align-items: center; gap: 10px;
       padding: 9px 9px 9px 18px;
       border-radius: var(--radius-field);
       background: rgba(28, 21, 13, 0.55);
       border: 1px solid rgba(184, 135, 58, 0.34);
       box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.2) inset,
-        0 18px 45px -20px rgba(0, 0, 0, 0.8),
-        0 0 40px -12px rgba(184, 135, 58, 0.25);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        0 0 0 1px rgba(0,0,0,.2) inset,
+        0 18px 45px -20px rgba(0,0,0,.8),
+        0 0 40px -12px rgba(184,135,58,.25);
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
     .notify:focus-within {
-      border-color: rgba(201, 168, 120, 0.6);
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.2) inset,
-        0 18px 45px -20px rgba(0, 0, 0, 0.8),
-        0 0 42px -8px rgba(184, 135, 58, 0.4);
+      border-color: rgba(201,168,120,.6);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 18px 45px -20px rgba(0,0,0,.8), 0 0 42px -8px rgba(184,135,58,.4);
     }
-    .field {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-    .field .mail-icon {
-      flex: none; width: 19px; height: 19px; color: var(--gold-light); opacity: 0.9;
-    }
+    .notify.invalid { border-color: rgba(224, 122, 95, 0.75); }
+    .field { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
+    .field .mail-icon { flex: none; width: 19px; height: 19px; color: var(--gold-light); opacity: .9; }
     .field input {
-      flex: 1 1 auto;
-      min-width: 0;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #eae4da;
-      font-family: inherit;
-      font-size: 15px;
-      letter-spacing: 0.01em;
+      flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none;
+      color: #eae4da; font-family: inherit; font-size: 15px; letter-spacing: .01em;
     }
     .field input::placeholder { color: #8b8278; }
     .notify button {
-      flex: none;
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
+      flex: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--ink);
       background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%);
-      border: none;
-      border-radius: 10px;
-      padding: 12px 24px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: filter 0.18s ease, transform 0.05s ease;
+      border: none; border-radius: 10px; padding: 12px 24px; cursor: pointer; white-space: nowrap;
+      transition: filter .18s ease, transform .05s ease, opacity .18s ease;
     }
     .notify button:hover { filter: brightness(1.06); }
     .notify button:active { transform: translateY(1px); }
+    .notify button:disabled { opacity: .7; cursor: default; filter: none; transform: none; }
 
-    /* success state */
+    /* success confirmation (inline, replaces the form) */
     .done {
       margin-top: clamp(24px, 4vw, 30px);
-      font-size: 16px;
-      color: var(--gold-light);
-      font-weight: 500;
-      min-height: 24px;
-      max-width: 480px;
+      display: none; align-items: center; gap: 9px;
+      font-size: 15.5px; color: var(--gold-light); font-weight: 500; max-width: 480px;
     }
-    .done .check { color: #c9a878; margin-right: 6px; }
+    .done.show { display: inline-flex; }
+    .done svg { flex: none; width: 18px; height: 18px; color: #7fd6a2; }
+    .done strong { color: #eadfce; font-weight: 600; }
 
-    /* ── Footer email ── */
-    .contact {
-      margin-top: clamp(22px, 4vw, 30px);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #8c8069;
-      text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      transition: color 0.2s ease;
+    /* ── WhatsApp button ── */
+    .whatsapp {
+      margin-top: clamp(26px, 4.5vw, 34px);
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--wa); color: #fff; text-decoration: none;
+      font-size: 14.5px; font-weight: 600; letter-spacing: .01em;
+      padding: 12px 22px; border-radius: 999px;
+      box-shadow: 0 8px 22px -8px rgba(37, 211, 102, 0.55);
+      transition: filter .18s ease, transform .06s ease, box-shadow .18s ease;
     }
-    .contact svg { width: 15px; height: 15px; flex: none; }
-    .contact:hover { color: var(--gold-light); }
+    .whatsapp:hover { filter: brightness(1.05); box-shadow: 0 10px 26px -8px rgba(37,211,102,.7); }
+    .whatsapp:active { transform: translateY(1px); }
+    .whatsapp svg { width: 19px; height: 19px; fill: currentColor; }
 
-    /* ── Stack the input above the button on narrow screens ── */
+    /* ── Toast (matches Taskly's ui/toast.tsx) ── */
+    #toasts {
+      position: fixed; z-index: 300; pointer-events: none;
+      top: max(16px, env(safe-area-inset-top)); left: 0; right: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 16px;
+    }
+    @media (min-width: 640px) {
+      #toasts { left: auto; right: 20px; top: 20px; align-items: flex-end; padding: 0; }
+    }
+    .toast {
+      pointer-events: auto; display: flex; align-items: stretch; width: 100%; max-width: 400px;
+      overflow: hidden; border-radius: 16px; background: #fff;
+      border: 1px solid rgba(13,13,13,.08);
+      box-shadow: 0 16px 44px -16px rgba(13,13,13,.45);
+      transform: translateY(-14px) scale(.96); opacity: 0;
+      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .28s cubic-bezier(.16,1,.3,1);
+    }
+    .toast.in { transform: translateY(0) scale(1); opacity: 1; }
+    .toast .accent { width: 3px; flex: none; }
+    .toast.success .accent { background: #10b981; }
+    .toast.error   .accent { background: #ef4444; }
+    .toast.info    .accent { background: var(--gold); }
+    .toast .body { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; flex: 1; }
+    .toast .ticon { flex: none; margin-top: 1px; width: 17px; height: 17px; }
+    .toast.success .ticon { color: #059669; }
+    .toast.error   .ticon { color: #ef4444; }
+    .toast.info    .ticon { color: var(--gold); }
+    .toast .content { min-width: 0; flex: 1; }
+    .toast .msg { font-size: 13.5px; font-weight: 600; color: #0D0D0D; line-height: 1.35; }
+    .toast .desc { margin-top: 2px; font-size: 12.5px; font-weight: 500; color: rgba(13,13,13,.6); line-height: 1.35; }
+    .toast .close {
+      flex: none; margin: -2px -4px 0 0; width: 24px; height: 24px; border: none; background: transparent;
+      display: grid; place-items: center; border-radius: 999px; cursor: pointer; color: rgba(13,13,13,.4);
+      transition: color .15s ease, background .15s ease;
+    }
+    .toast .close:hover { color: #0D0D0D; background: rgba(13,13,13,.06); }
+
     @media (max-width: 560px) {
-      .notify {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 14px;
-      }
-      .field {
-        padding: 4px 4px 4px 6px;
-      }
-      .notify button {
-        width: 100%;
-        padding: 13px 24px;
-      }
+      .notify { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px; }
+      .field { padding: 4px 4px 4px 6px; }
+      .notify button { width: 100%; padding: 13px 24px; }
     }
   </style>
 </head>
 <body>
+  <div id="toasts" aria-live="polite" aria-atomic="false"></div>
+
   <main class="wrap">
     <div class="brand">
       <img class="logo" src="data:image/png;base64,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" alt="Taskly" />
@@ -249,63 +221,151 @@
           <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
           <path d="M3 6l9 6 9-6"/>
         </svg>
-        <input type="email" id="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+        <input type="email" id="email" name="email" placeholder="Enter your email address"
+               autocomplete="email" inputmode="email" maxlength="254" required />
       </div>
-      <button type="submit">Notify Me</button>
+      <button type="submit" id="submitBtn">Notify Me</button>
     </form>
 
     <div class="done" id="done" role="status" aria-live="polite"></div>
 
-    <a class="contact" href="mailto:care@taskly.ca">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-        <path d="M3 6l9 6 9-6"/>
-      </svg>
-      care@taskly.ca
+    <a class="whatsapp" id="waLink"
+       href="https://wa.me/14379707070?text=Hi%20Taskly!%20Please%20let%20me%20know%20when%20you're%20back%20online."
+       target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span>WhatsApp us</span>
     </a>
   </main>
 
   <script>
     (function () {
+      // ─────────────────────────────────────────────────────────────────────────
+      //  DELIVERY ENDPOINT
+      //  This is a STATIC page — it has no database and no server of its own.
+      //  To actually receive signups, create a free form endpoint (e.g. Formspree
+      //  at https://formspree.io — 2 min, no code) and paste its URL below.
+      //  Every submission is then emailed to you AND stored in that dashboard.
+      //  Leave it empty and the form still works visually but delivers nowhere.
+      // ─────────────────────────────────────────────────────────────────────────
+      var NOTIFY_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+
+      var STORE_KEY = 'taskly:notify:v1';
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
       var form = document.getElementById('notifyForm');
       var input = document.getElementById('email');
+      var btn = document.getElementById('submitBtn');
       var done = document.getElementById('done');
-      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      var TO = 'care@taskly.ca';
+      var toasts = document.getElementById('toasts');
+      var submitting = false;
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var email = (input.value || '').trim();
+      // ── Toast (mirrors components/ui/toast.tsx) ────────────────────────────────
+      var ICONS = {
+        success: '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>',
+        error:   '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+        info:    '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+      };
+      var CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
-        if (!EMAIL_RE.test(email)) {
-          input.focus();
-          input.style.color = '#e6a58a';
-          input.value = '';
-          input.placeholder = 'Please enter a valid email';
-          return;
+      function esc(s) { return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+      function toast(variant, message, description) {
+        var el = document.createElement('div');
+        el.className = 'toast ' + variant;
+        el.setAttribute('role', variant === 'error' ? 'alert' : 'status');
+        el.innerHTML =
+          '<span class="accent" aria-hidden="true"></span>' +
+          '<div class="body">' + ICONS[variant] +
+            '<div class="content"><p class="msg">' + esc(message) + '</p>' +
+            (description ? '<p class="desc">' + esc(description) + '</p>' : '') + '</div>' +
+            '<button class="close" type="button" aria-label="Dismiss">' + CLOSE + '</button>' +
+          '</div>';
+        // keep at most 3 stacked
+        while (toasts.children.length >= 3) { toasts.removeChild(toasts.firstChild); }
+        toasts.appendChild(el);
+        requestAnimationFrame(function () { el.classList.add('in'); });
+
+        var timer = setTimeout(remove, variant === 'error' ? 6000 : 4000);
+        function remove() {
+          clearTimeout(timer);
+          el.classList.remove('in');
+          setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 300);
         }
+        el.querySelector('.close').addEventListener('click', remove);
+      }
 
-        // No backend on a static page — hand the address to Taskly by opening
-        // the visitor's mail client pre-addressed to care@taskly.ca.
-        var subject = encodeURIComponent('Notify me when Taskly is back');
-        var body = encodeURIComponent(
-          "Hi Taskly team,\n\nPlease notify me when you're back online.\n\nMy email: " + email + "\n\nThanks!"
-        );
-        window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
+      // ── persistence (dedupe only — NOT a real database) ────────────────────────
+      function loadSubmitted() {
+        try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
+      }
+      function markSubmitted(email) {
+        try {
+          var list = loadSubmitted();
+          if (list.indexOf(email) === -1) { list.push(email); localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+        } catch (e) { /* private mode / storage off — ignore */ }
+      }
+      function alreadySubmitted(email) { return loadSubmitted().indexOf(email) !== -1; }
 
-        // Swap the form for a confirmation.
+      function showDone(email) {
         form.style.display = 'none';
-        done.innerHTML = '<span class="check">✓</span> Thanks! We’ll notify <strong>' +
-          email.replace(/[<>&]/g, '') + '</strong> the moment we’re back.';
-      });
+        done.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
+          '<span>Thanks! We’ll notify <strong>' + esc(email) + '</strong> the moment we’re back.</span>';
+        done.classList.add('show');
+      }
 
-      // Reset the error hint as soon as the visitor types again.
-      input.addEventListener('input', function () {
-        input.style.color = '';
-        if (input.placeholder !== 'Enter your email address') {
-          input.placeholder = 'Enter your email address';
+      function flagInvalid() {
+        form.classList.add('invalid');
+        setTimeout(function () { form.classList.remove('invalid'); }, 1500);
+      }
+
+      async function deliver(email) {
+        if (!NOTIFY_ENDPOINT) { return { ok: true, delivered: false }; }
+        var res = await fetch(NOTIFY_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: email, _subject: 'New Taskly notify-me signup' })
+        });
+        return { ok: res.ok, delivered: res.ok };
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (submitting) return;                       // guard: no double-fire
+
+        var email = (input.value || '').trim().toLowerCase();
+
+        if (!email) { flagInvalid(); input.focus(); toast('error', 'Please enter your email'); return; }
+        if (!EMAIL_RE.test(email) || email.length > 254) {
+          flagInvalid(); input.focus(); toast('error', 'That email doesn’t look right', 'Check for typos and try again.'); return;
+        }
+        if (alreadySubmitted(email)) {                // one email, once — never 100×
+          toast('info', 'You’re already on the list', 'We’ll email you the moment we’re back.');
+          showDone(email); return;
+        }
+
+        submitting = true;
+        btn.disabled = true;
+        var label = btn.textContent; btn.textContent = 'Sending…';
+
+        try {
+          var r = await deliver(email);
+          if (!r.ok) throw new Error('bad response');
+          markSubmitted(email);
+          showDone(email);
+          toast('success', 'You’re on the list!', 'We’ll notify ' + email + ' when we’re back.');
+          if (!r.delivered) { console.warn('[taskly] No NOTIFY_ENDPOINT set — signup was NOT delivered anywhere. Add a Formspree URL to capture emails.'); }
+        } catch (err) {
+          toast('error', 'Something went wrong', 'Please try again, or reach us on WhatsApp.');
+          btn.disabled = false; btn.textContent = label;
+        } finally {
+          submitting = false;
         }
       });
+
+      // clear the invalid state as soon as the visitor edits the field
+      input.addEventListener('input', function () { form.classList.remove('invalid'); });
     })();
   </script>
 </body>
