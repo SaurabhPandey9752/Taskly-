@@ -14,8 +14,11 @@
       --gold: #B8873A;
       --gold-light: #C9A878;
       --ink: #161311;
+      --rich-black: #0D0D0D;
       --radius-field: 14px;
+      --radius-panel: 24px;
       --wa: #25D366;
+      --ease: cubic-bezier(.16, 1, .3, 1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,10 +54,7 @@
     /* ── Brand ── */
     .brand { display: flex; align-items: center; gap: clamp(10px, 2.4vw, 15px); }
     .brand .logo { height: clamp(30px, 7.6vw, 42px); width: auto; display: block; }
-    .brand .word {
-      font-size: clamp(32px, 8vw, 50px);
-      font-weight: 600; letter-spacing: -0.02em; color: #fff; line-height: 1;
-    }
+    .brand .word { font-size: clamp(32px, 8vw, 50px); font-weight: 600; letter-spacing: -0.02em; color: #fff; line-height: 1; }
     .brand .flag {
       width: clamp(24px, 5.6vw, 31px); height: auto; display: block;
       margin-left: clamp(2px, 1vw, 5px); align-self: center; border-radius: 2px;
@@ -68,10 +68,7 @@
     }
 
     /* ── Headline ── */
-    .headline {
-      font-size: clamp(21px, 5.4vw, 40px);
-      font-weight: 700; line-height: 1.26; letter-spacing: -0.02em; max-width: 100%;
-    }
+    .headline { font-size: clamp(21px, 5.4vw, 40px); font-weight: 700; line-height: 1.26; letter-spacing: -0.02em; max-width: 100%; }
     .headline .l1 { color: #efe9df; }
     .headline .l2 {
       background: linear-gradient(92deg, #EAD6AC 0%, #D6AE6E 55%, #C69355 100%);
@@ -93,10 +90,7 @@
       border-radius: var(--radius-field);
       background: rgba(28, 21, 13, 0.55);
       border: 1px solid rgba(184, 135, 58, 0.34);
-      box-shadow:
-        0 0 0 1px rgba(0,0,0,.2) inset,
-        0 18px 45px -20px rgba(0,0,0,.8),
-        0 0 40px -12px rgba(184,135,58,.25);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 18px 45px -20px rgba(0,0,0,.8), 0 0 40px -12px rgba(184,135,58,.25);
       transition: border-color .2s ease, box-shadow .2s ease;
     }
     .notify:focus-within {
@@ -121,16 +115,6 @@
     .notify button:active { transform: translateY(1px); }
     .notify button:disabled { opacity: .7; cursor: default; filter: none; transform: none; }
 
-    /* success confirmation (inline, replaces the form) */
-    .done {
-      margin-top: clamp(24px, 4vw, 30px);
-      display: none; align-items: center; gap: 9px;
-      font-size: 15.5px; color: var(--gold-light); font-weight: 500; max-width: 480px;
-    }
-    .done.show { display: inline-flex; }
-    .done svg { flex: none; width: 18px; height: 18px; color: #7fd6a2; }
-    .done strong { color: #eadfce; font-weight: 600; }
-
     /* ── WhatsApp button ── */
     .whatsapp {
       margin-top: clamp(26px, 4.5vw, 34px);
@@ -145,33 +129,28 @@
     .whatsapp:active { transform: translateY(1px); }
     .whatsapp svg { width: 19px; height: 19px; fill: currentColor; }
 
-    /* ── Toast (matches Taskly's ui/toast.tsx) ── */
+    /* ── Toast (errors) — matches Taskly ui/toast.tsx ── */
     #toasts {
       position: fixed; z-index: 300; pointer-events: none;
       top: max(16px, env(safe-area-inset-top)); left: 0; right: 0;
       display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 16px;
     }
-    @media (min-width: 640px) {
-      #toasts { left: auto; right: 20px; top: 20px; align-items: flex-end; padding: 0; }
-    }
+    @media (min-width: 640px) { #toasts { left: auto; right: 20px; top: 20px; align-items: flex-end; padding: 0; } }
     .toast {
       pointer-events: auto; display: flex; align-items: stretch; width: 100%; max-width: 400px;
-      overflow: hidden; border-radius: 16px; background: #fff;
-      border: 1px solid rgba(13,13,13,.08);
+      overflow: hidden; border-radius: 16px; background: #fff; border: 1px solid rgba(13,13,13,.08);
       box-shadow: 0 16px 44px -16px rgba(13,13,13,.45);
       transform: translateY(-14px) scale(.96); opacity: 0;
-      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .28s cubic-bezier(.16,1,.3,1);
+      transition: transform .28s var(--ease), opacity .28s var(--ease);
     }
     .toast.in { transform: translateY(0) scale(1); opacity: 1; }
     .toast .accent { width: 3px; flex: none; }
-    .toast.success .accent { background: #10b981; }
-    .toast.error   .accent { background: #ef4444; }
-    .toast.info    .accent { background: var(--gold); }
+    .toast.error .accent { background: #ef4444; }
+    .toast.info  .accent { background: var(--gold); }
     .toast .body { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; flex: 1; }
     .toast .ticon { flex: none; margin-top: 1px; width: 17px; height: 17px; }
-    .toast.success .ticon { color: #059669; }
-    .toast.error   .ticon { color: #ef4444; }
-    .toast.info    .ticon { color: var(--gold); }
+    .toast.error .ticon { color: #ef4444; }
+    .toast.info  .ticon { color: var(--gold); }
     .toast .content { min-width: 0; flex: 1; }
     .toast .msg { font-size: 13.5px; font-weight: 600; color: #0D0D0D; line-height: 1.35; }
     .toast .desc { margin-top: 2px; font-size: 12.5px; font-weight: 500; color: rgba(13,13,13,.6); line-height: 1.35; }
@@ -181,6 +160,83 @@
       transition: color .15s ease, background .15s ease;
     }
     .toast .close:hover { color: #0D0D0D; background: rgba(13,13,13,.06); }
+
+    /* ── Success modal — Taskly DS dialog (white card, blurred scrim) ── */
+    .modal {
+      position: fixed; inset: 0; z-index: 400;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      background: rgba(13, 13, 13, 0.55);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      opacity: 0; visibility: hidden;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+    .modal.open { opacity: 1; visibility: visible; }
+    .modal-card {
+      position: relative; width: 100%; max-width: 400px; overflow: hidden;
+      background: #1C1C1C; color: #FAFAFA;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 34px 26px 26px;
+      text-align: center;
+      box-shadow: 0 44px 120px -30px rgba(0,0,0,.75), 0 12px 40px -16px rgba(0,0,0,.6);
+      transform: scale(.95); opacity: 0;
+      transition: transform .22s var(--ease), opacity .2s ease;
+    }
+    .modal.open .modal-card { transform: scale(1); opacity: 1; }
+    /* signature gold hairline + glow from Taskly's ShareSheet */
+    .modal-hair {
+      position: absolute; left: 0; right: 0; top: 0; height: 1px; pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(184,135,58,.7), transparent);
+    }
+    .modal-glow {
+      position: absolute; top: -80px; left: 50%; width: 320px; height: 176px;
+      transform: translateX(-50%); border-radius: 999px; pointer-events: none;
+      background: rgba(184, 135, 58, 0.16); filter: blur(48px);
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px; z-index: 2;
+      width: 32px; height: 32px; border: none; background: transparent;
+      display: grid; place-items: center; border-radius: 999px;
+      color: rgba(250,250,250,.68); cursor: pointer; transition: color .15s ease, background .15s ease;
+    }
+    .modal-close:hover { background: rgba(250,250,250,.07); color: #fff; }
+    .modal-close:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(250,250,250,.5); }
+
+    .succ-check { width: 62px; height: 62px; margin: 2px auto 18px; display: block; }
+    .succ-c {
+      fill: rgba(16,185,129,.08); stroke: #10b981; stroke-width: 3;
+      stroke-dasharray: 151; stroke-dashoffset: 151;
+      transform: rotate(-90deg); transform-origin: center;
+    }
+    .succ-m {
+      fill: none; stroke: #059669; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 40; stroke-dashoffset: 40;
+    }
+    .modal.open .succ-c { animation: draw .5s ease forwards .08s; }
+    .modal.open .succ-m { animation: draw .34s ease forwards .46s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .modal-title {
+      font-family: inherit; font-size: 21px; font-weight: 600; letter-spacing: -0.02em;
+      line-height: 1.15; color: #FAFAFA;
+    }
+    .modal-msg {
+      margin-top: 9px; font-size: 15px; font-weight: 450; line-height: 1.55; color: rgba(237,238,240,.72);
+    }
+    .modal-msg strong { font-weight: 700; color: #FAFAFA; word-break: break-word; }
+    .modal-btn {
+      margin-top: 24px; width: 100%; font-family: inherit; font-size: 15px; font-weight: 600;
+      color: #0D0D0D; background: #FAFAFA; border: none; border-radius: 13px;
+      padding: 14px 22px; cursor: pointer; transition: background .16s ease, transform .05s ease;
+    }
+    .modal-btn:hover { background: rgba(250,250,250,.9); }
+    .modal-btn:active { transform: translateY(1px); }
+    .modal-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #1C1C1C, 0 0 0 4px rgba(250,250,250,.7); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .modal, .modal-card, .toast { transition-duration: .01ms; }
+      .modal.open .succ-c, .modal.open .succ-m { animation: none; stroke-dashoffset: 0; }
+    }
 
     @media (max-width: 560px) {
       .notify { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px; }
@@ -227,8 +283,6 @@
       <button type="submit" id="submitBtn">Notify Me</button>
     </form>
 
-    <div class="done" id="done" role="status" aria-live="polite"></div>
-
     <a class="whatsapp" id="waLink"
        href="https://wa.me/14379707070?text=Hi%20Taskly!%20Please%20let%20me%20know%20when%20you're%20back%20online."
        target="_blank" rel="noopener noreferrer">
@@ -237,17 +291,28 @@
     </a>
   </main>
 
+  <!-- Success modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMsg">
+    <div class="modal-card">
+      <span class="modal-hair" aria-hidden="true"></span>
+      <span class="modal-glow" aria-hidden="true"></span>
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <svg class="succ-check" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="succ-c" cx="26" cy="26" r="24"/>
+        <path class="succ-m" d="M15 27l7 7 15-16"/>
+      </svg>
+      <h2 class="modal-title" id="modalTitle">You're on the list!</h2>
+      <p class="modal-msg" id="modalMsg">We'll email <strong id="modalEmail"></strong> the moment we're back.</p>
+      <button class="modal-btn" id="modalDone" type="button">Got it</button>
+    </div>
+  </div>
+
   <script>
     (function () {
-      // ─────────────────────────────────────────────────────────────────────────
-      //  DELIVERY ENDPOINT
-      //  This is a STATIC page — it has no database and no server of its own.
-      //  To actually receive signups, create a free form endpoint (e.g. Formspree
-      //  at https://formspree.io — 2 min, no code) and paste its URL below.
-      //  Every submission is then emailed to you AND stored in that dashboard.
-      //  Leave it empty and the form still works visually but delivers nowhere.
-      // ─────────────────────────────────────────────────────────────────────────
-      var NOTIFY_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+      // Formspree endpoint — every signup is emailed + stored in the dashboard.
+      var NOTIFY_ENDPOINT = 'https://formspree.io/f/xgognlap';
 
       var STORE_KEY = 'taskly:notify:v1';
       var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -255,20 +320,23 @@
       var form = document.getElementById('notifyForm');
       var input = document.getElementById('email');
       var btn = document.getElementById('submitBtn');
-      var done = document.getElementById('done');
       var toasts = document.getElementById('toasts');
+      var modal = document.getElementById('modal');
+      var modalEmail = document.getElementById('modalEmail');
+      var modalClose = document.getElementById('modalClose');
+      var modalDone = document.getElementById('modalDone');
       var submitting = false;
-
-      // ── Toast (mirrors components/ui/toast.tsx) ────────────────────────────────
-      var ICONS = {
-        success: '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>',
-        error:   '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-        info:    '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
-      };
-      var CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      var lastFocus = null;
 
       function esc(s) { return String(s).replace(/[&<>"']/g, function (c) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+      // ── Toast (errors only) ────────────────────────────────────────────────────
+      var ICONS = {
+        error: '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+        info:  '<svg class="ticon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+      };
+      var CLOSE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
       function toast(variant, message, description) {
         var el = document.createElement('div');
@@ -279,13 +347,11 @@
           '<div class="body">' + ICONS[variant] +
             '<div class="content"><p class="msg">' + esc(message) + '</p>' +
             (description ? '<p class="desc">' + esc(description) + '</p>' : '') + '</div>' +
-            '<button class="close" type="button" aria-label="Dismiss">' + CLOSE + '</button>' +
+            '<button class="close" type="button" aria-label="Dismiss">' + CLOSE_SVG + '</button>' +
           '</div>';
-        // keep at most 3 stacked
         while (toasts.children.length >= 3) { toasts.removeChild(toasts.firstChild); }
         toasts.appendChild(el);
         requestAnimationFrame(function () { el.classList.add('in'); });
-
         var timer = setTimeout(remove, variant === 'error' ? 6000 : 4000);
         function remove() {
           clearTimeout(timer);
@@ -295,55 +361,66 @@
         el.querySelector('.close').addEventListener('click', remove);
       }
 
-      // ── persistence (dedupe only — NOT a real database) ────────────────────────
-      function loadSubmitted() {
-        try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
+      // ── Modal ──────────────────────────────────────────────────────────────────
+      function openModal(email) {
+        modalEmail.textContent = email;
+        lastFocus = document.activeElement;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        // focus after the enter transition so it doesn't fight the animation
+        setTimeout(function () { modalDone.focus(); }, 60);
       }
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        // reset the field so a different email can be entered
+        input.value = '';
+        form.classList.remove('invalid');
+        btn.disabled = false; btn.textContent = 'Notify Me';
+        if (lastFocus && lastFocus.focus) { lastFocus.focus(); } else { input.focus(); }
+      }
+      modalClose.addEventListener('click', closeModal);
+      modalDone.addEventListener('click', closeModal);
+      modal.addEventListener('mousedown', function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      // ── persistence (dedupe only — not a database) ─────────────────────────────
+      function loadSubmitted() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; } }
       function markSubmitted(email) {
-        try {
-          var list = loadSubmitted();
-          if (list.indexOf(email) === -1) { list.push(email); localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
-        } catch (e) { /* private mode / storage off — ignore */ }
+        try { var l = loadSubmitted(); if (l.indexOf(email) === -1) { l.push(email); localStorage.setItem(STORE_KEY, JSON.stringify(l)); } } catch (e) {}
       }
       function alreadySubmitted(email) { return loadSubmitted().indexOf(email) !== -1; }
 
-      function showDone(email) {
-        form.style.display = 'none';
-        done.innerHTML =
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
-          '<span>Thanks! We’ll notify <strong>' + esc(email) + '</strong> the moment we’re back.</span>';
-        done.classList.add('show');
-      }
-
       function flagInvalid() {
         form.classList.add('invalid');
-        setTimeout(function () { form.classList.remove('invalid'); }, 1500);
+        setTimeout(function () { form.classList.remove('invalid'); }, 1600);
       }
 
       async function deliver(email) {
-        if (!NOTIFY_ENDPOINT) { return { ok: true, delivered: false }; }
+        if (!NOTIFY_ENDPOINT) { return { ok: true }; }
         var res = await fetch(NOTIFY_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ email: email, _subject: 'New Taskly notify-me signup' })
         });
-        return { ok: res.ok, delivered: res.ok };
+        return { ok: res.ok };
       }
 
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        if (submitting) return;                       // guard: no double-fire
+        if (submitting) return;
 
         var email = (input.value || '').trim().toLowerCase();
 
         if (!email) { flagInvalid(); input.focus(); toast('error', 'Please enter your email'); return; }
         if (!EMAIL_RE.test(email) || email.length > 254) {
-          flagInvalid(); input.focus(); toast('error', 'That email doesn’t look right', 'Check for typos and try again.'); return;
+          flagInvalid(); input.focus();
+          toast('error', 'That email doesn’t look right', 'Check for typos and try again.');
+          return;
         }
-        if (alreadySubmitted(email)) {                // one email, once — never 100×
-          toast('info', 'You’re already on the list', 'We’ll email you the moment we’re back.');
-          showDone(email); return;
-        }
+        if (alreadySubmitted(email)) { openModal(email); return; }   // one email, once
 
         submitting = true;
         btn.disabled = true;
@@ -353,9 +430,7 @@
           var r = await deliver(email);
           if (!r.ok) throw new Error('bad response');
           markSubmitted(email);
-          showDone(email);
-          toast('success', 'You’re on the list!', 'We’ll notify ' + email + ' when we’re back.');
-          if (!r.delivered) { console.warn('[taskly] No NOTIFY_ENDPOINT set — signup was NOT delivered anywhere. Add a Formspree URL to capture emails.'); }
+          openModal(email);
         } catch (err) {
           toast('error', 'Something went wrong', 'Please try again, or reach us on WhatsApp.');
           btn.disabled = false; btn.textContent = label;
@@ -364,7 +439,6 @@
         }
       });
 
-      // clear the invalid state as soon as the visitor edits the field
       input.addEventListener('input', function () { form.classList.remove('invalid'); });
     })();
   </script>
