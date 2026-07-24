@@ -22,6 +22,7 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark; }
     html, body { height: 100%; }
 
     body {
@@ -31,14 +32,20 @@
       background-image:
         radial-gradient(56% 50% at 50% 38%, rgba(126, 88, 40, 0.30) 0%, rgba(64, 45, 22, 0.10) 42%, rgba(10, 8, 6, 0) 72%),
         radial-gradient(140% 120% at 50% 38%, #17120c 0%, #0a0806 55%, #060504 100%);
-      min-height: 100dvh;
+      /* Lock the viewport so iOS Safari can't rubber-band / drift — a stable,
+         non-scrolling single screen (behaves like Android). */
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
       display: flex;
       align-items: center;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       padding: clamp(20px, 5vw, 32px);
-      overflow-x: hidden;
+      padding-top: max(clamp(20px, 5vw, 32px), env(safe-area-inset-top));
+      padding-bottom: max(clamp(20px, 5vw, 32px), env(safe-area-inset-bottom));
     }
 
     .wrap {
@@ -81,39 +88,57 @@
       letter-spacing: 0.005em; max-width: 34ch;
     }
 
-    /* ── Notify form ── */
+    /* ── Notify form — input box and button are SEPARATE containers ── */
     .notify {
       margin-top: clamp(24px, 4vw, 30px);
-      width: 100%; max-width: 560px;
+      width: 100%; max-width: 440px;
+      display: flex; align-items: stretch; gap: 10px;
+    }
+    /* the input is its own bordered field (Taskly field, 14px radius) */
+    .field {
+      flex: 1 1 auto; min-width: 0;
       display: flex; align-items: center; gap: 10px;
-      padding: 9px 9px 9px 18px;
+      height: 52px; padding: 0 16px;
       border-radius: var(--radius-field);
-      background: rgba(28, 21, 13, 0.55);
+      background: rgba(28, 21, 13, 0.6);
       border: 1px solid rgba(184, 135, 58, 0.34);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 18px 45px -20px rgba(0,0,0,.8), 0 0 40px -12px rgba(184,135,58,.25);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 14px 34px -22px rgba(0,0,0,.8);
       transition: border-color .2s ease, box-shadow .2s ease;
     }
-    .notify:focus-within {
+    .field:focus-within {
       border-color: rgba(201,168,120,.6);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 18px 45px -20px rgba(0,0,0,.8), 0 0 42px -8px rgba(184,135,58,.4);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.2) inset, 0 0 0 3px rgba(184,135,58,.14);
     }
-    .notify.invalid { border-color: rgba(224, 122, 95, 0.75); }
-    .field { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
+    .field.invalid { border-color: rgba(224, 122, 95, 0.8); }
     .field .mail-icon { flex: none; width: 19px; height: 19px; color: var(--gold-light); opacity: .9; }
     .field input {
-      flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none;
-      color: #eae4da; font-family: inherit; font-size: 15px; letter-spacing: .01em;
+      flex: 1 1 auto; min-width: 0; height: 100%;
+      background: transparent; border: none; outline: none;
+      color: #eae4da; font-family: inherit; font-size: 16px; letter-spacing: .01em;
+      -webkit-appearance: none; appearance: none;
     }
     .field input::placeholder { color: #8b8278; }
-    .notify button {
+    /* kill the iOS/Chrome autofill white banner — keep the field dark */
+    .field input:-webkit-autofill,
+    .field input:-webkit-autofill:hover,
+    .field input:-webkit-autofill:focus {
+      -webkit-text-fill-color: #eae4da;
+      -webkit-box-shadow: 0 0 0 1000px transparent inset;
+      box-shadow: 0 0 0 1000px transparent inset;
+      caret-color: #eae4da;
+      transition: background-color 9999s ease 0s;
+    }
+    /* the button is its own separate container (Taskly button) */
+    .notify-btn {
       flex: none; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--ink);
       background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%);
-      border: none; border-radius: 10px; padding: 12px 24px; cursor: pointer; white-space: nowrap;
+      border: none; border-radius: var(--radius-field); padding: 0 24px; height: 52px;
+      cursor: pointer; white-space: nowrap;
       transition: filter .18s ease, transform .05s ease, opacity .18s ease;
     }
-    .notify button:hover { filter: brightness(1.06); }
-    .notify button:active { transform: translateY(1px); }
-    .notify button:disabled { opacity: .7; cursor: default; filter: none; transform: none; }
+    .notify-btn:hover { filter: brightness(1.06); }
+    .notify-btn:active { transform: translateY(1px); }
+    .notify-btn:disabled { opacity: .7; cursor: default; filter: none; transform: none; }
 
     /* ── Action buttons (WhatsApp + About) ── */
     .actions {
@@ -245,10 +270,9 @@
       .modal.open .succ-c, .modal.open .succ-m { animation: none; stroke-dashoffset: 0; }
     }
 
-    @media (max-width: 560px) {
-      .notify { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px; }
-      .field { padding: 4px 4px 4px 6px; }
-      .notify button { width: 100%; padding: 13px 24px; }
+    @media (max-width: 520px) {
+      .notify { flex-direction: column; gap: 10px; }
+      .notify-btn { width: 100%; }
     }
   </style>
 </head>
@@ -279,7 +303,7 @@
     <p class="subtext">Leave your email and we'll notify you when we're back.</p>
 
     <form class="notify" id="notifyForm" novalidate>
-      <div class="field">
+      <div class="field" id="fieldBox">
         <svg class="mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
           <path d="M3 6l9 6 9-6"/>
@@ -287,7 +311,7 @@
         <input type="email" id="email" name="email" placeholder="Enter your email address"
                autocomplete="email" inputmode="email" maxlength="254" required />
       </div>
-      <button type="submit" id="submitBtn">Notify Me</button>
+      <button type="submit" id="submitBtn" class="notify-btn">Notify Me</button>
     </form>
 
     <div class="actions">
@@ -332,6 +356,7 @@
 
       var form = document.getElementById('notifyForm');
       var input = document.getElementById('email');
+      var fieldBox = document.getElementById('fieldBox');
       var btn = document.getElementById('submitBtn');
       var toasts = document.getElementById('toasts');
       var modal = document.getElementById('modal');
@@ -379,16 +404,14 @@
         modalEmail.textContent = email;
         lastFocus = document.activeElement;
         modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
         // focus after the enter transition so it doesn't fight the animation
         setTimeout(function () { modalDone.focus(); }, 60);
       }
       function closeModal() {
         modal.classList.remove('open');
-        document.body.style.overflow = '';
         // reset the field so a different email can be entered
         input.value = '';
-        form.classList.remove('invalid');
+        fieldBox.classList.remove('invalid');
         btn.disabled = false; btn.textContent = 'Notify Me';
         if (lastFocus && lastFocus.focus) { lastFocus.focus(); } else { input.focus(); }
       }
@@ -407,8 +430,8 @@
       function alreadySubmitted(email) { return loadSubmitted().indexOf(email) !== -1; }
 
       function flagInvalid() {
-        form.classList.add('invalid');
-        setTimeout(function () { form.classList.remove('invalid'); }, 1600);
+        fieldBox.classList.add('invalid');
+        setTimeout(function () { fieldBox.classList.remove('invalid'); }, 1600);
       }
 
       async function deliver(email) {
@@ -452,7 +475,7 @@
         }
       });
 
-      input.addEventListener('input', function () { form.classList.remove('invalid'); });
+      input.addEventListener('input', function () { fieldBox.classList.remove('invalid'); });
     })();
   </script>
 </body>
