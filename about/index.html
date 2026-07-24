@@ -107,9 +107,82 @@
     .signoff img { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex: none; }
     .signoff .name { font-size: 18px; font-weight: 640; letter-spacing: -0.01em; line-height: 1; color: var(--ink); }
     .signoff .role { margin-top: 5px; font-size: 12.5px; color: var(--muted); }
-    .signoff .links { margin-top: 16px; border-top: 1px solid var(--hair); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .signoff .links a { font-size: 13px; font-weight: 640; color: var(--gold-txt); text-decoration: none; transition: color .15s; width: fit-content; }
-    .signoff .links a:hover { color: #fff; }
+    .signoff .links { margin-top: 16px; border-top: 1px solid var(--hair); padding-top: 16px; display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .signoff .li-link { font-size: 13px; font-weight: 640; color: var(--gold-txt); text-decoration: none; transition: color .15s; }
+    .signoff .li-link:hover { color: #fff; }
+    .story-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: inherit; font-size: 13px; font-weight: 640; cursor: pointer;
+      color: #0f0b06; background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%);
+      border: none; border-radius: 999px; padding: 9px 16px;
+      transition: filter .16s ease, transform .05s ease;
+    }
+    .story-btn:hover { filter: brightness(1.05); }
+    .story-btn:active { transform: translateY(1px); }
+    .story-btn svg { flex: none; }
+
+    /* ── Story modal (dark, Taskly ShareSheet style) ── */
+    .modal {
+      position: fixed; inset: 0; z-index: 400;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      background: rgba(13, 13, 13, 0.55);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s ease;
+    }
+    .modal.open { opacity: 1; visibility: visible; }
+    .modal-card {
+      position: relative; width: 100%; max-width: 440px; overflow: hidden;
+      background: #1C1C1C; color: #FAFAFA; border: 1px solid rgba(255,255,255,.06);
+      border-radius: 20px; padding: 30px 24px 24px;
+      box-shadow: 0 44px 120px -30px rgba(0,0,0,.75), 0 12px 40px -16px rgba(0,0,0,.6);
+      transform: scale(.95); opacity: 0; transition: transform .22s var(--ease, cubic-bezier(.16,1,.3,1)), opacity .2s ease;
+      max-height: calc(100dvh - 40px); overflow-y: auto; overscroll-behavior: contain;
+    }
+    .modal.open .modal-card { transform: scale(1); opacity: 1; }
+    .modal-hair { position: absolute; left: 0; right: 0; top: 0; height: 1px; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(184,135,58,.7), transparent); }
+    .modal-close {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      width: 32px; height: 32px; border: none; background: transparent; display: grid; place-items: center;
+      border-radius: 999px; color: rgba(250,250,250,.68); cursor: pointer; transition: color .15s ease, background .15s ease;
+    }
+    .modal-close:hover { background: rgba(250,250,250,.07); color: #fff; }
+    .modal h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: #FAFAFA; }
+    .modal .sub { margin-top: 7px; font-size: 13.5px; line-height: 1.5; color: rgba(237,238,240,.68); }
+    .form { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .form label { display: block; font-size: 12px; font-weight: 640; color: rgba(250,250,250,.6); margin-bottom: 6px; letter-spacing: .01em; }
+    .form input, .form textarea {
+      width: 100%; font-family: inherit; font-size: 16px; color: #eae4da;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px; padding: 12px 14px; outline: none;
+      -webkit-appearance: none; appearance: none; transition: border-color .16s ease, box-shadow .16s ease;
+    }
+    .form textarea { min-height: 108px; resize: vertical; line-height: 1.5; }
+    .form input::placeholder, .form textarea::placeholder { color: #7d766c; }
+    .form input:focus, .form textarea:focus { border-color: rgba(201,168,120,.65); box-shadow: 0 0 0 3px rgba(184,135,58,.14); }
+    .form .err-field { border-color: rgba(224,122,95,.85); }
+    .form .err { font-size: 12.5px; color: #e88f76; min-height: 0; }
+    .form .err:empty { display: none; }
+    .story-submit {
+      margin-top: 4px; width: 100%; font-family: inherit; font-size: 15px; font-weight: 600;
+      color: #0f0b06; background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%);
+      border: none; border-radius: 12px; padding: 14px; cursor: pointer;
+      transition: filter .16s ease, transform .05s ease, opacity .16s ease;
+    }
+    .story-submit:hover { filter: brightness(1.05); }
+    .story-submit:active { transform: translateY(1px); }
+    .story-submit:disabled { opacity: .65; cursor: default; filter: none; transform: none; }
+    /* success view */
+    .story-done { display: none; text-align: center; padding: 8px 0 4px; }
+    .story-done.show { display: block; }
+    .story-form.hide { display: none; }
+    .succ-check { width: 58px; height: 58px; margin: 4px auto 16px; display: block; }
+    .succ-c { fill: rgba(16,185,129,.08); stroke: #10b981; stroke-width: 3; stroke-dasharray: 151; stroke-dashoffset: 151; transform: rotate(-90deg); transform-origin: center; }
+    .succ-m { fill: none; stroke: #059669; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; }
+    .story-done.show .succ-c { animation: draw .5s ease forwards .05s; }
+    .story-done.show .succ-m { animation: draw .34s ease forwards .42s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .story-done .msg { font-size: 15px; color: rgba(237,238,240,.85); line-height: 1.5; }
+    .story-done .close2 { margin-top: 20px; width: 100%; font-family: inherit; font-size: 15px; font-weight: 600; color: #0D0D0D; background: #FAFAFA; border: none; border-radius: 12px; padding: 13px; cursor: pointer; }
 
     /* ── Share block (inverted — light on dark) ── */
     .block { margin: 0 auto; max-width: 600px; padding: 4px 20px; }
@@ -239,7 +312,7 @@
       I decided to spend my nights building the bridge.
     </p>
     <p>
-      For four and a half years — after work, alone, one man in one room —
+      For seven years — after work, alone, one man in one room —
       I built Taskly. Every screen you see here was made after midnight, on one
       belief: <b>skill should never have to hold a cardboard sign.</b>
     </p>
@@ -265,8 +338,11 @@
         </div>
       </div>
       <div class="links">
-        <a href="mailto:hello@mohitmittal.com">hello@mohitmittal.com</a>
-        <a href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <button class="story-btn" id="openStory" type="button">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Post your story
+        </button>
+        <a class="li-link" href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
   </section>
@@ -283,7 +359,7 @@
   <!-- CTA pair -->
   <section class="ctas">
     <a class="cta solid" href="https://taskly.ca/post-task">Post a task <span class="arw">→</span></a>
-    <a class="cta outline" href="https://taskly.ca/onboarding/tasker">Say &ldquo;I&rsquo;m a pro&rdquo;</a>
+    <a class="cta outline" href="https://taskly.ca/onboarding/tasker">Want to earn</a>
   </section>
 
   <!-- Talk to me -->
@@ -291,8 +367,6 @@
     <span class="eyebrow">Talk to me</span>
     <p class="lead">Investors, journalists, kind humans — I read everything.</p>
     <p class="contact">
-      <a href="mailto:hello@mohitmittal.com">hello@mohitmittal.com</a>
-      <span class="dot">·</span>
       <a href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </p>
   </section>
@@ -302,20 +376,144 @@
     <div class="f-copy">The quiet confidence that it's handled.</div>
   </footer>
 
+  <!-- Post-your-story modal -->
+  <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
+    <div class="modal-card">
+      <span class="modal-hair" aria-hidden="true"></span>
+      <button class="modal-close" id="storyClose" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="story-form" id="storyForm">
+        <h2 id="storyTitle">Share your story</h2>
+        <p class="sub">A line, a paragraph, whatever you&rsquo;ve got — someone with a to-do list, or a skill and no door to knock on. We read everything.</p>
+        <form class="form" id="storyFormEl" novalidate>
+          <div>
+            <label for="sName">Your name</label>
+            <input type="text" id="sName" name="name" placeholder="Jane Doe" autocomplete="name" maxlength="80" />
+          </div>
+          <div>
+            <label for="sEmail">Your email</label>
+            <input type="email" id="sEmail" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" maxlength="254" />
+          </div>
+          <div>
+            <label for="sStory">Your story</label>
+            <textarea id="sStory" name="story" placeholder="Tell us what happened…" maxlength="4000"></textarea>
+          </div>
+          <p class="err" id="sErr" role="alert"></p>
+          <button class="story-submit" id="sSubmit" type="submit">Send story</button>
+        </form>
+      </div>
+
+      <div class="story-done" id="storyDone">
+        <svg class="succ-check" viewBox="0 0 52 52" aria-hidden="true">
+          <circle class="succ-c" cx="26" cy="26" r="24"/>
+          <path class="succ-m" d="M15 27l7 7 15-16"/>
+        </svg>
+        <h2 style="margin-bottom:8px;">Thank you.</h2>
+        <p class="msg">We&rsquo;ve got your story — and we read every one.</p>
+        <button class="close2" id="storyDoneClose" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
-      var btn = document.getElementById('shareBtn');
-      btn.addEventListener('click', async function () {
+      // Same Formspree endpoint as the notify form — story submissions land in
+      // the same dashboard, tagged by _subject so they're easy to tell apart.
+      var STORY_ENDPOINT = 'https://formspree.io/f/xgognlap';
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // ── Share button ──
+      var shareBtn = document.getElementById('shareBtn');
+      shareBtn.addEventListener('click', async function () {
         var url = window.location.href;
         var text = 'The sign said "Will work for money." The story behind Taskly.';
-        try {
-          if (navigator.share) { await navigator.share({ title: 'Why Taskly exists', text: text, url: url }); return; }
-        } catch (e) { return; }
+        try { if (navigator.share) { await navigator.share({ title: 'Why Taskly exists', text: text, url: url }); return; } } catch (e) { return; }
         try {
           await navigator.clipboard.writeText(url);
-          btn.textContent = 'Link copied ✓';
-          setTimeout(function () { btn.textContent = 'Share this story'; }, 2000);
+          shareBtn.textContent = 'Link copied ✓';
+          setTimeout(function () { shareBtn.textContent = 'Share this story'; }, 2000);
         } catch (e) {}
+      });
+
+      // ── Story modal ──
+      var modal = document.getElementById('storyModal');
+      var openBtn = document.getElementById('openStory');
+      var closeBtn = document.getElementById('storyClose');
+      var doneCloseBtn = document.getElementById('storyDoneClose');
+      var formWrap = document.getElementById('storyForm');
+      var doneWrap = document.getElementById('storyDone');
+      var formEl = document.getElementById('storyFormEl');
+      var nameEl = document.getElementById('sName');
+      var emailEl = document.getElementById('sEmail');
+      var storyEl = document.getElementById('sStory');
+      var errEl = document.getElementById('sErr');
+      var submitBtn = document.getElementById('sSubmit');
+      var lastFocus = null, submitting = false;
+
+      function openModal() {
+        lastFocus = document.activeElement;
+        // reset to the form view each open
+        doneWrap.classList.remove('show'); formWrap.classList.remove('hide');
+        errEl.textContent = '';
+        [nameEl, emailEl, storyEl].forEach(function (el) { el.classList.remove('err-field'); });
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { nameEl.focus(); }, 60);
+      }
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      openBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      doneCloseBtn.addEventListener('click', closeModal);
+      modal.addEventListener('mousedown', function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+      function fail(el, msg) { el.classList.add('err-field'); errEl.textContent = msg; el.focus(); }
+
+      formEl.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (submitting) return;
+        errEl.textContent = '';
+        [nameEl, emailEl, storyEl].forEach(function (el) { el.classList.remove('err-field'); });
+
+        var name = (nameEl.value || '').trim();
+        var email = (emailEl.value || '').trim().toLowerCase();
+        var story = (storyEl.value || '').trim();
+
+        if (!name) return fail(nameEl, 'Please add your name.');
+        if (!EMAIL_RE.test(email) || email.length > 254) return fail(emailEl, 'Please enter a valid email.');
+        if (story.length < 10) return fail(storyEl, 'Tell us a little more (at least a sentence).');
+
+        submitting = true;
+        submitBtn.disabled = true;
+        var label = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+
+        try {
+          var res = await fetch(STORY_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name: name, email: email, story: story, _subject: 'New Taskly story submission' })
+          });
+          if (!res.ok) throw new Error('bad response');
+          formWrap.classList.add('hide');
+          doneWrap.classList.add('show');
+          setTimeout(function () { doneCloseBtn.focus(); }, 60);
+        } catch (err) {
+          errEl.textContent = 'Something went wrong. Please try again.';
+          submitBtn.disabled = false; submitBtn.textContent = label;
+        } finally {
+          submitting = false;
+        }
+      });
+
+      // clear error styling as the visitor edits
+      [nameEl, emailEl, storyEl].forEach(function (el) {
+        el.addEventListener('input', function () { el.classList.remove('err-field'); errEl.textContent = ''; });
       });
     })();
   </script>
