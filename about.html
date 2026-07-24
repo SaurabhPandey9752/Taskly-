@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our story — why Taskly exists</title>
+  <meta name="description" content="The sign said &quot;Will work for money.&quot; A drive-through, a phone call, sixty dollars, and the company it built. The story behind Taskly, from its founder." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FAFAFA;
+      --ink: #0D0D0D;
+      --gold: #B8873A;
+      --gold-dark: #8A6414;
+      --e1: 0 1px 2px rgba(13,13,13,.04), 0 1px 3px rgba(13,13,13,.06);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--cream); color: var(--ink);
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    .eyebrow {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 11px; font-weight: 600; line-height: 1; text-transform: uppercase; letter-spacing: 0.24em;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px clamp(16px, 5vw, 28px);
+      background: rgba(250, 250, 250, 0.82); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(13,13,13,.06);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand .badge {
+      width: 32px; height: 32px; border-radius: 8px; background: var(--ink);
+      display: grid; place-items: center; flex: none;
+    }
+    .brand .badge img { width: 20px; height: 20px; display: block; }
+    .brand .word { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+    .back {
+      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+      font-size: 13.5px; font-weight: 600; color: rgba(13,13,13,.6);
+      padding: 8px 14px; border-radius: 999px; transition: background .15s, color .15s;
+    }
+    .back:hover { background: rgba(13,13,13,.05); color: var(--ink); }
+
+    /* ── Cold open ── */
+    .coldopen { padding: clamp(40px, 7vw, 64px) 20px 16px; text-align: center; }
+    .coldopen .eyebrow { color: var(--gold-dark); display: block; margin-bottom: 24px; }
+
+    .placard {
+      margin: 0 auto; width: 230px; transform: rotate(-2deg);
+      border-radius: 6px; padding: 26px 18px 18px;
+      background: linear-gradient(160deg, #C9A878 0%, #BC9765 100%);
+      box-shadow: 0 24px 50px -22px rgba(0,0,0,.45), inset 0 0 0 1px rgba(13,13,13,.15);
+    }
+    .placard span { display: block; font-weight: 800; line-height: 1.12; letter-spacing: 0.02em; color: #191512; }
+    .placard .big { font-size: 30px; }
+    .placard .mid { font-size: 22px; color: rgba(25,21,18,.9); }
+    .placard .l-work { transform: rotate(.6deg); }
+    .placard .l-for  { transform: rotate(-.7deg); }
+    .placard .l-money{ transform: rotate(.4deg); }
+    .placard .phone { margin-top: 12px; font-size: 15px; font-weight: 700; letter-spacing: 0.14em; color: rgba(25,21,18,.75); }
+
+    .coldopen h1 {
+      margin: 32px auto 0; max-width: 16ch;
+      font-size: clamp(30px, 6vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    .coldopen .intro {
+      margin: 16px auto 0; max-width: 36ch; text-align: left;
+      font-size: clamp(15px, 2vw, 16.5px); line-height: 1.65; color: rgba(13,13,13,.8);
+    }
+    @media (min-width: 640px) { .coldopen .intro { max-width: 44ch; } }
+
+    /* ── Story ── */
+    .story { margin: 0 auto; max-width: 38ch; padding: 32px 20px 48px; }
+    @media (min-width: 640px) { .story { max-width: 52ch; padding: 48px 20px; } }
+    .story p { margin-bottom: 16px; text-align: left; font-size: clamp(15px, 2vw, 16.5px); line-height: 1.7; color: rgba(13,13,13,.8); }
+    .story p b { font-weight: 700; color: var(--ink); }
+    .story .keyline { font-size: 17px !important; font-weight: 700; color: var(--ink) !important; line-height: 1.5; }
+    .story .ps { margin-bottom: 4px; font-size: 13.5px !important; color: rgba(13,13,13,.6) !important; }
+
+    blockquote {
+      margin: 28px 0; border-left: 3px solid var(--gold); padding-left: 16px;
+      font-weight: 620; line-height: 1.45; letter-spacing: -0.01em; color: var(--ink);
+      font-size: clamp(19px, 3vw, 22px);
+    }
+    blockquote.mid { font-size: clamp(17px, 2.6vw, 19px); }
+
+    /* ── Sign-off card ── */
+    .signoff {
+      margin-top: 40px; border-radius: 16px; border: 1px solid rgba(13,13,13,.1);
+      background: #fff; padding: 20px; box-shadow: var(--e1);
+    }
+    .signoff .row { display: flex; align-items: center; gap: 14px; }
+    .signoff img { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex: none; }
+    .signoff .name { font-size: 18px; font-weight: 640; letter-spacing: -0.01em; line-height: 1; }
+    .signoff .role { margin-top: 5px; font-size: 12.5px; color: rgba(13,13,13,.6); }
+    .signoff .links { margin-top: 16px; border-top: 1px solid rgba(13,13,13,.08); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .signoff .links a { font-size: 13px; font-weight: 640; color: var(--gold-dark); text-decoration: none; transition: color .15s; width: fit-content; }
+    .signoff .links a:hover { color: var(--ink); }
+
+    /* ── Share block ── */
+    .block { margin: 0 auto; max-width: 600px; padding: 4px 20px; }
+    .share-card { border-radius: 20px; background: var(--ink); padding: 32px 24px; text-align: center; }
+    .share-card h2 { font-size: clamp(20px, 3.4vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--cream); text-wrap: balance; }
+    .share-card p { margin: 8px auto 20px; max-width: 34ch; font-size: 13px; line-height: 1.6; color: rgba(250,250,250,.75); }
+    .share-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; font-family: inherit;
+      border-radius: 999px; background: var(--cream); color: var(--ink);
+      padding: 14px 28px; font-size: 14px; font-weight: 640;
+      transition: background .18s, transform .06s;
+    }
+    .share-btn:hover { background: rgba(250,250,250,.9); }
+    .share-btn:active { transform: scale(.98); }
+
+    /* ── CTA pair ── */
+    .ctas { margin: 0 auto; max-width: 600px; display: flex; gap: 10px; padding: 20px 20px 8px; }
+    .cta {
+      flex: 1; text-align: center; text-decoration: none; border-radius: 999px;
+      padding: 14px 10px; font-size: 13.5px; font-weight: 640; transition: background .16s, color .16s;
+    }
+    .cta.solid { background: var(--ink); color: var(--cream); }
+    .cta.solid:hover { background: rgba(13,13,13,.85); }
+    .cta.outline { border: 1.5px solid var(--ink); color: var(--ink); }
+    .cta.outline:hover { background: rgba(13,13,13,.05); }
+    .cta .arw { display: inline-block; margin-left: 3px; }
+
+    /* ── Talk to me ── */
+    .talk { margin: 0 auto; max-width: 600px; padding: 24px 20px 56px; text-align: center; }
+    .talk .eyebrow { color: var(--gold-dark); display: block; margin-bottom: 12px; }
+    .talk .lead { margin: 0 auto; max-width: 40ch; font-size: 13.5px; line-height: 1.6; color: rgba(13,13,13,.7); }
+    .talk .contact { margin-top: 12px; font-size: 13.5px; font-weight: 640; }
+    .talk .contact a { color: var(--gold-dark); text-decoration: none; transition: color .15s; }
+    .talk .contact a:hover { color: var(--ink); }
+    .talk .contact .dot { margin: 0 8px; color: rgba(13,13,13,.3); }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid rgba(13,13,13,.08); padding: 22px 20px; text-align: center; }
+    footer .f-brand { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+    footer .f-copy { margin-top: 4px; font-size: 12px; color: rgba(13,13,13,.5); }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="brand" href="index.html" aria-label="Back to Taskly">
+      <span class="badge"><img src="data:image/png;base64,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" alt="" /></span>
+      <span class="word">taskly</span>
+    </a>
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back
+    </a>
+  </div>
+
+  <!-- Cold open -->
+  <section class="coldopen">
+    <span class="eyebrow">Our story</span>
+    <div class="placard" aria-hidden="true">
+      <span class="big">WILL</span>
+      <span class="big l-work">WORK</span>
+      <span class="mid l-for">FOR</span>
+      <span class="big l-money">MONEY</span>
+      <span class="phone">416 · ··· · ····</span>
+    </div>
+    <h1>The sign said &ldquo;Will work for money.&rdquo;</h1>
+    <p class="intro">
+      Winter. A Tim Hortons drive-through in Toronto. A man sat by the window
+      with a cardboard sign, hiding his face behind it. An empty cup in his
+      hand. And under those four words — his phone number.
+    </p>
+  </section>
+
+  <!-- Story -->
+  <section class="story">
+    <p>
+      I&rsquo;d landed in Canada in 2019. Within months, the world locked
+      down. For my first seven months I had no job — I slept on the floor of
+      an empty apartment, with twenty years of skills and no door to knock on.
+    </p>
+    <p>So I knew something about standing outside with your talent.</p>
+    <p>
+      Outside the Walmart where I shopped, I&rsquo;d see families in the cold
+      asking for help. Mothers with small children. Peak winter. And every time, the
+      same thought: <b>what are we doing wrong?</b>
+    </p>
+    <p>
+      That day at the drive-through, I took my coffee home. Then I did
+      something I&rsquo;d never done before.
+    </p>
+    <p>I called the number on the sign.</p>
+
+    <blockquote>&ldquo;What do you do?&rdquo; I asked.<br />&ldquo;I&rsquo;m a pro.&rdquo;</blockquote>
+
+    <p>
+      A handyman. He could fix, hang, build — anything around a house. And I
+      had IKEA curtain rods in a box, no drill, and bare windows. I gave him
+      my address.
+    </p>
+    <p>
+      He came the next day with a neat little tool roll. He unwrapped it
+      slowly and laid out his screwdrivers in a straight row — everything in
+      its place, everything cared for. I remember standing in my doorway
+      thinking:
+    </p>
+
+    <blockquote class="mid">Here is an organized man the world has filed under &ldquo;disorganized.&rdquo;</blockquote>
+
+    <p>
+      Three hours later my curtains were up. I paid him sixty dollars, and he
+      went home.
+    </p>
+    <p>A few days later my phone rang. It was him — not asking for work.</p>
+
+    <blockquote>&ldquo;Nobody has been that kind to me.&rdquo;</blockquote>
+
+    <p>That call broke my heart. And then it built this company.</p>
+    <p>
+      Because he was never the problem. The problem was that
+      <b>nothing existed to connect his hands to my curtains.</b> His skill
+      was real. My need was real. The only thing missing was the bridge.
+    </p>
+    <p class="keyline">
+      Wasted talent is a wasted country.<br />
+      I decided to spend my nights building the bridge.
+    </p>
+    <p>
+      For four and a half years — after work, alone, one man in one room —
+      I built Taskly. Every screen you see here was made after midnight, on one
+      belief: <b>skill should never have to hold a cardboard sign.</b>
+    </p>
+    <p>
+      Taskly is that phone call, made repeatable. You post what you need.
+      Someone nearby — interviewed, reviewed, paid safely — says
+      &ldquo;I&rsquo;m a pro.&rdquo; Your money is held by Taskly and released
+      when the work is done. One side gets relief. The other gets dignity.
+      Both get the thing they were actually missing.
+    </p>
+    <p class="ps">
+      P.S. — I still have his number. He lives close by. His seat on Taskly
+      is the next call I make.
+    </p>
+
+    <!-- Sign-off -->
+    <div class="signoff">
+      <div class="row">
+        <img src="data:image/jpeg;base64,/9j/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCACgAKADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAwQGBwECBQgA/8QAOhAAAgEDAgMHAQYDCAMAAAAAAQIDAAQRBSEGEjEHEyJBUWFxgRQyQpGhsRUjwQgWJDNSYnLRkvDx/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAMBBAUCBv/EACgRAAICAQQCAAYDAQAAAAAAAAABAhEDBBIhMQVBE1FxgbHwYZHR8f/aAAwDAQACEQMRAD8A6AUmiKuK2Rc0RY6QPNQlFRK3SL1oyR0USCCda27s7bUcR+lb93muSbF+SvjHvTPde1fd17UUAt3ZzWe7oOp6tp+jpzXtykRPROrN8Ab1wLrtJ0W3HhhvX+Ywg/U0ASNozWvIcVDY+17RHlCNbXCg7cwYGuvYcecP6g4T7Z9nc4AWcco/PpRQHXKYNaMmabKqyhlIZTuCNwRWjJQAkyYFCdacdM0B0xQAsy5G9BZABsKbKUKRNqAEXGetLOuPkU+8eaWkTbNAEgRBR0UEdKwq0ZV9q7o4s+RKMiVhFoyrRQGFT2rdY62VSTW00sVpayXM7BIolLOx8gKKCwU8sFnEZbmVIk6ZY1wtc4ngsof5cwhUj/NYgZHqD5/Teqq7ReObqfVYe+jItRn+SGKmJT0JI6SYHuN8GoKb7WNchkSwW5ks42wQuQDvsT713SSuRHMnUVZKuKeMWuL2VNPJYk+KeUeNvgdQPmobd3XPIXvb1pmJ3UHmJ9qRvLXUrIlZLOWEnfJU1y5WkzlifrQlF9MJOS7R3BrUcZAiAUDpnrWbfWpIQ5+8uPvHqcdPpUfRwDkn8hR0ljYjmJU+orrajney4+zntJS1kWxvGYWrYwASyp7gHce4H5VcSNHPEk0Lq8cgDKwOxFeZNPvdMYxQxoq8+Fd225dv3q3eC9cn0KWOw1JkayuDiOUA5jONmfbG/wDSlSjXI2LvgnjJjel5VyelOSLgkGgOtcEijDHlQiMCmXHtQHFAC0g3paRc044oEi0ASFUzRUTNZVR6UZFpgswsdGRdulfKtGVfagDCpUT7TtZ/heiR20cnJNcSLjHUAHr/AF+lTJBVQdusjxX1mCSFMBKkeR3B/epirZDZSnGF2ZdSuERyytKx3PU52/Sr04F4dtrXhnT0SNcvErMRjc9apThTh+bi/iq008AsuQ0p9FXFeodM4Wt9Ct40i51VVwqM2Qo+tZ/kZ9QRr+Jx9zfs4mocPxXUJSaFGGepFRLVOzTS7tMmJYz/ALBirSZYpFOZFx80B9KhePPPkeuazFKcejZcccuGULf9kEBybe5lQ+hUEVGdT7NdSscmFu9x5YxXoxtIQSYJyCdqWuNDhXd8YHlViGtyx9lbJ47BL1R5iXR9Rs5gs0E0ZB9NqsCyu72DRlkugZFtirDqTyZ+6PcbbHyORVmPo2kyNy3Pdhc7k+VE404MXSuEYNR02WGW2nLwMCvNk8vMvwcBhkdRWjh1LycNGPqNHHDzFnb4Y1Iaxw/Z3YfnLLylvXG2f2p51rhdm9ibTgyxyc96Wk69ATgfoKkTL7U2itYo6UB0zTrrS8g9KCBN1wKA65puQUuwxUgSZB7UYCtFoqjNNoSbKtEXasLvRFFRRNmVFVL/AGiFEWn6VOAOaR2hzjy2NW6B6VXXbppw1jhFobYGa9sp1lEcY5mUYIYHHQ4Oce1RuUeZOjqOOU72qyC/2eLa0tr7XdevWCWunWolmkwW5F3JbA3qWcT8fw8dc1pwpHrV1bRnEj29t3a83+53IA+KY7HtKfV+za80+2js9N0zIivY4k559Rdk8ZmkP3R5BVG3rXL0Kxn0Lh2+0SwcCez1CeJS7Y8LEMrE+6su9VdQ4wk3VsvaVTyQUbqPP1ITqvCvHduzPZ3c0Ee55ZLsE/XBIoGgy8a6ZeCS7nu5o1O8KTqfPyUkA/ArpcV8P69PbwSR6jeNcFf8SjSBIUfPWPG5GPXekrexvrXVI7WC4u5LdsZ79uZum5HpSp5Ht7TH48S39SRN17UNItnFtqUs2n3SjmaO7haNgPI9MH6GuJr/AGqWd8r2ukzNczsMIIUZifet9T0aLtA4r0rRZYikWmRzyXUnny+ABf8Ay2+QaiGv8PXHCfEt/Z6fFHErwJLEwGFKBiD+Rxn6UmOLHa7ur/fyWJ58yTqtt1fv99CH8F421eYzNPKgY5/mTYx84zVp8HaNxnP2f6tpV1arq0DyxmEreKrwz7kNhwMjAPQioBptprM93bPNqU32EupkEUgLgfiGMYOfKr74I4LvP7vXGdYvYIp7cXCCBgkwTnwQ+xGSPxLjbHnmr2ObbpV9jNy40lbtfUjfDnG+l6bJpvCOp2+oaZrKxpCILq2KiRyOqspIwTnB6VMH9ai39y9Hg7QbeaG3eQ6ZYGYvNK0jGeWQhXJY5yFRvzqVSDG1NZVQFztS8gplxtS7rUHQq+d6BIMU1IDSriggk60VRQ1FGQU4UEUCtwK0AogoA1uJGgtZ5Y/vpE7L8hTiq64aMK6TLcXcuDK3M8jHJYnc59asnAZSp6EYIqsNW0C8tpLnRreMtzSie3J2DJ5jPkRWX5GLuL9HoPCzi4Tg++H9iY9iOnxxcN62qtzW82rTGIYx4AFCjFcziXQrzTdeudS0+2iu7e5RY7m2MgjcsmQsiE7Z5Tgg4yAu+1SbgeVNP0xYFt2t2kPePGeocjcn8qZvgkvOGGQT+tc553FP2c6bHU5L1ZU99eCNyJdO1SLP4WhVgPqrGl7C4zIfsmjXU87HAMpSMD53Jx9KmetRW0akuqlh1yK5mh3CTXX8lVCg8pOOp/6qlvXyNP4Tq7/A3wZw1Jon229vRE2o6g/ez91nkjXfljXO+BkknzJJpLiThebiAzT2CxfxPTQ1zCZPuSREYljb/aV39ioNTeCBe5Ys6E9Dg5wKX4cNqOKlt7lwILmOSB8HA5WUgn9aZjbeRN+xGaKWFxiuv+lJxi3fHf6PcQvnDdy6Ov6lT+lW/wBlGrajd2moWGlaSJ5XjEYlv7sRJEmCPupzs3XoMVB9X0+LQ9fvdINxFcrA/wDLmQ5DoRlT84NTLsevlsOJJhnCSQH88in4Mm3Kk0VtTg3YHJO/6/wb07S5bFru4vJ1uL68l7yeRE5UGByqiAkkKoGBk5OST1ozjrT96o+0S46c5/ekpBitNmEhdxQHo70BqCRZzvS8vSmJVpd6CCTJvRlFCjoy00WEUVuK0WiCgDIFCvLcXVuYyqlgeZSdiD80YbCvveuZwjOO2XR3iySxyU4vk4lv3mlukUzKG3xydDvt+9HmvOZc82DnGPSg8TqyW8d0uByMFJ9AajbaqFTAY4JyxzWVq4bXtXRt6HJvTk+zmcX38nOYg2AepHl61zbDiG0tdPkjt1LlRgSDcM3ptW3Gola2Etu/jI5SB1OR0/UVyOGeG+I7S1fuNTjiJPOLdoFPJ/xJqrCMauRfyTm5VHo0v+M7/htWubGxdDzDnflYc+fI+o96j+v9onEl7OyWlq8EL+BpYslmB6gHyqX6pFxDbIxlk70AdJYtv02NRTUodalIKXrK52EdvHyqv9BT4ON3SFZMWRxb3M5+l8Vh7uKKcTCc9Wfcnfzq5OzSXvLq4n2zhIgf+R8qpW24eu0ujc3dz3rNgNIQBynO+KvPs5tkt9NjZRnJMmfUAYH711si8i2CHlmsT+IS2dsyMR5kmlZN+tHc0CStRmChdxQXo7DNAcVB0LS7negPjemH6mlpBQQSVKMhpdPmjIaaLGFrcUJTRF6UAbjpXxrGNq2C5qQB3ln9v0m+t8ZLQ5X2YEYqlTqk1rIVcYcbFM/iB3I9qu/R7y21ezv7izk763gJgaVR4HcHxKp/FjzI2ztVKdoOmz6TqkmpQrzQSsGmHkp9cfFZ+pa37H7NTRxax716fIrJrEczRgIA4OxY7EDfP/2pBpupR3iFhlWU8pz6+gqvrzVBdWJa2KpIzAErucZrtaHrNt3UEGVR+UKd9w3pv18s1TlhuNmhDU7ZU+jrcU21/dRqlrcyxsN8h+UAVFbC01FWcX1zNKyvkZY8p+lSifU1QDvWUrKcDlB8WDtn0qP6pqf+aynblyrZAxjy3pajKto6U4N7jS7t5LkfZ0PJEnilbO5Ht6/FW3wPA6aHFOy8gdeWNcdEHn9ar/QdKTX5bbTclZ5z397KTjuYlBI+M+9XFDBFBBHFCoWJFCoB0AA2rTwYVBfyYmq1DyN10CYUF6PJQGNWGU0AcmgPTD0u561BIs+aC9GfrQXNAHejIo6nNLpTCA00WGTejotc3Vdb07h+1NzqV0kEfkCfEx9APOqh4x7dZ3d7PRw1pGducYMzf0UfrXSi2Q3RbXEXGGicKwl9RvFEoGRbx+KRvp5fWqS427br/Vpxb6Y7WdiFKssbeJ2P+pvPbyG1Vdq+v3mqTO80zHmJJHMSW9yTuaRDFoCD5HNdcLo57PTvYNxuupcKTaJLIO9sSyhc7lGYsD+ZI+ldnXLWG+jeCdfC3pXmHg/i684R1qDVLQ83J4JYicCWM9VP9D5HFek9K1+w4p0uLUtPmEkUg6fiQ+asPIisHyWOcZbvR6PxWWE4OHsq3iTgW+05pJ9LccvUK26n59Kglwdd06YObeWN1OeZfED/AFr0PdwNknbGNxXFvtHsrkZeFVY+YpODXNcTVjs/j4y5g6KMuuItYnWNMSxsgIJwd96No7a3rGqQW8AXvOYHLqeVfc+vrVi6zoFnGhCRoT60Tg+zg055JSi83QVbWrjVqJVehmnTkTng/hY6VwXr8kchl1GWwnd7iQeJ27s/kNulVLwv2q63wpJJbRSfa7JQJVtpySFU9Qp6iri1PiWDhfs+1i9lf+bJaPBFn8UjqVA/WvMVxIEuCf8ATFyfsKuaOTnFuRQ18FCUYxPSvDfa3w7xEFimm/h10w/y5z4W+G6fnUtyroGRlZWGQynINePZGKIOUkfiUjyqS8K9ouuaEAtpfPyr1hk8SN9D0+lWnD5FJSPS8mwpdveoDoXbPp9+Fj1W2a1kOxkjPMmfjqKm9pf2mpQiezuIp4z+JGzS3Fo7TsxJtQHo8oOTQGX1rkk78Y2qGcZdq2ncOxPBYPHcXQypk6oh9sfePxtUD4+7XJr4y6dpLd1bDwswO7/JH7D65qqru+eeQvJIzufM/wDu1WUkuxDd9HZ4i4z1LiC7e4uriVi3RnPi+B5KPiox3hLE5xmsvJzedB5t6G7AyT4qLEc5HrQH9aJG24qABk8rkflXd4V4x1ThC++02EmY3wJoH+5KPceR9DXCnXfNYVsjeolFSW2S4OoTlCSlF0z0Xw92jaPxNCvdyfZ7nHigkO4PsfMe9de4kjP3WGD715fSWS3kWSJ2R13DKcEVKtI7SdU09BFcj7VGPPm5WH9DWNm8XTvEbun8umqzL7ltanDGx3brSFu0UB+8ABuTUIPaRaXB5pVuY/blB/Y0nqPaBayWzRWkM7SNtzNhQKVHR5eqLM/IYavcdDtE4sk1qaCwjciytjzcvkzDzqCTyFg7f6tq+mupLg8zHc0JjmMVt4cfw4KJ53UZnlm5Dofnt4z6DFKd4Y5Mqcb0SF825X0NLS9aYJHY75lbOetd/QuK77R7hZrS4eJvPlPX5HnURJIoscpU9akD0hwdx/b8SBLW65YrwjYj7snx6GpVINq8taNrEtnexFJGjbI5WB3U+Rr0JwPxWnFejCR2AvID3c6+4/F9aVOPtDIyvg843NxuQMCk2ck1tKfH80E70wWbEmtWNYzvXzfdzQBkHmX4rZDtWiGsigAkniWgijA5GKCdjQBsD61huvSsdK2GGG9AGhFZXY9KzisqN6AN5G2A6V8T4BWkhy1fZ8NABYWwjCtJDmvoz1rUmgDBOQK+zg18ela0Ab85WQMPI5qadnfFT8Pa8Z2Y9xJJyyr6q3/XWoQetNW0vdFm8yR+1AH/2Q==" alt="Mohit Mittal, founder of Taskly" />
+        <div>
+          <p class="name">Mohit Mittal</p>
+          <p class="role">Founder, Taskly</p>
+        </div>
+      </div>
+      <div class="links">
+        <a href="https://taskly.ca/u/4bfc51f9-9260-4271-bbb5-0088ba4da9ae">Message me on Taskly</a>
+        <a href="mailto:hello@mohitmittal.com">hello@mohitmittal.com</a>
+        <a href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Share block -->
+  <section class="block">
+    <div class="share-card">
+      <h2>Stories are how change travels.</h2>
+      <p>If this one moved you, send it to one person — someone with a to-do list, or someone with a skill and no door to knock on.</p>
+      <button class="share-btn" id="shareBtn" type="button">Share this story</button>
+    </div>
+  </section>
+
+  <!-- CTA pair -->
+  <section class="ctas">
+    <a class="cta solid" href="https://taskly.ca/post-task">Post a task <span class="arw">→</span></a>
+    <a class="cta outline" href="https://taskly.ca/onboarding/tasker">Say &ldquo;I&rsquo;m a pro&rdquo;</a>
+  </section>
+
+  <!-- Talk to me -->
+  <section class="talk">
+    <span class="eyebrow">Talk to me</span>
+    <p class="lead">Investors, journalists, kind humans — I read everything.</p>
+    <p class="contact">
+      <a href="https://taskly.ca/u/4bfc51f9-9260-4271-bbb5-0088ba4da9ae">Message me on Taskly</a>
+      <span class="dot">·</span>
+      <a href="mailto:hello@mohitmittal.com">hello@mohitmittal.com</a>
+      <span class="dot">·</span>
+      <a href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
+  </section>
+
+  <footer>
+    <div class="f-brand">taskly</div>
+    <div class="f-copy">The quiet confidence that it's handled.</div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('shareBtn');
+      btn.addEventListener('click', async function () {
+        var url = window.location.href;
+        var text = 'The sign said "Will work for money." The story behind Taskly.';
+        try {
+          if (navigator.share) { await navigator.share({ title: 'Why Taskly exists', text: text, url: url }); return; }
+        } catch (e) { return; }
+        try {
+          await navigator.clipboard.writeText(url);
+          btn.textContent = 'Link copied ✓';
+          setTimeout(function () { btn.textContent = 'Share this story'; }, 2000);
+        } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
