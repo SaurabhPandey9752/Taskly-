@@ -118,6 +118,8 @@
       -webkit-appearance: none; appearance: none;
     }
     .field input::placeholder { color: #8b8278; }
+    /* honeypot — hidden from humans, catches bots */
+    .hp { position: absolute !important; left: -9999px !important; top: auto; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
     /* kill the iOS/Chrome autofill white banner — keep the field dark */
     .field input:-webkit-autofill,
     .field input:-webkit-autofill:hover,
@@ -312,6 +314,7 @@
                autocomplete="email" inputmode="email" maxlength="254" required />
       </div>
       <button type="submit" id="submitBtn" class="notify-btn">Notify Me</button>
+      <input class="hp" type="text" id="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
     </form>
 
     <div class="actions">
@@ -352,11 +355,20 @@
       var NOTIFY_ENDPOINT = 'https://formspree.io/f/xgognlap';
 
       var STORE_KEY = 'taskly:notify:v1';
-      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Proper email validation: shape + length + no consecutive/edge dots.
+      function validEmail(e) {
+        if (!e || e.length > 254) return false;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) return false;
+        if (/\.\./.test(e)) return false;                 // no consecutive dots
+        if (/^\.|\.$|\.@|@\.|@-|-\./.test(e)) return false; // no dot/dash next to @ or edges
+        return true;
+      }
 
       var form = document.getElementById('notifyForm');
       var input = document.getElementById('email');
       var fieldBox = document.getElementById('fieldBox');
+      var honeypot = document.getElementById('hp');
       var btn = document.getElementById('submitBtn');
       var toasts = document.getElementById('toasts');
       var modal = document.getElementById('modal');
@@ -448,10 +460,13 @@
         e.preventDefault();
         if (submitting) return;
 
+        // Honeypot filled → it's a bot. Pretend success, send nothing.
+        if (honeypot && honeypot.value) { openModal((input.value || '').trim().toLowerCase()); return; }
+
         var email = (input.value || '').trim().toLowerCase();
 
         if (!email) { flagInvalid(); input.focus(); toast('error', 'Please enter your email'); return; }
-        if (!EMAIL_RE.test(email) || email.length > 254) {
+        if (!validEmail(email)) {
           flagInvalid(); input.focus();
           toast('error', 'That email doesn’t look right', 'Check for typos and try again.');
           return;

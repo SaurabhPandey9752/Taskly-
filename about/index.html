@@ -158,6 +158,7 @@
     }
     .form textarea { min-height: 108px; resize: vertical; line-height: 1.5; }
     .form input::placeholder, .form textarea::placeholder { color: #7d766c; }
+    .hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
     .form input:focus, .form textarea:focus { border-color: rgba(201,168,120,.65); box-shadow: 0 0 0 3px rgba(184,135,58,.14); }
     .form .err-field { border-color: rgba(224,122,95,.85); }
     .form .err { font-size: 12.5px; color: #e88f76; min-height: 0; }
@@ -400,6 +401,7 @@
             <label for="sStory">Your story</label>
             <textarea id="sStory" name="story" placeholder="Tell us what happened…" maxlength="4000"></textarea>
           </div>
+          <input class="hp" type="text" id="sHp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <p class="err" id="sErr" role="alert"></p>
           <button class="story-submit" id="sSubmit" type="submit">Send story</button>
         </form>
@@ -422,7 +424,14 @@
       // Same Formspree endpoint as the notify form — story submissions land in
       // the same dashboard, tagged by _subject so they're easy to tell apart.
       var STORY_ENDPOINT = 'https://formspree.io/f/xgognlap';
-      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function validEmail(e) {
+        if (!e || e.length > 254) return false;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) return false;
+        if (/\.\./.test(e)) return false;
+        if (/^\.|\.$|\.@|@\.|@-|-\./.test(e)) return false;
+        return true;
+      }
 
       // ── Share button ──
       var shareBtn = document.getElementById('shareBtn');
@@ -448,6 +457,7 @@
       var nameEl = document.getElementById('sName');
       var emailEl = document.getElementById('sEmail');
       var storyEl = document.getElementById('sStory');
+      var hpEl = document.getElementById('sHp');
       var errEl = document.getElementById('sErr');
       var submitBtn = document.getElementById('sSubmit');
       var lastFocus = null, submitting = false;
@@ -481,13 +491,17 @@
         errEl.textContent = '';
         [nameEl, emailEl, storyEl].forEach(function (el) { el.classList.remove('err-field'); });
 
+        // Honeypot filled → bot. Silently show success, send nothing.
+        if (hpEl && hpEl.value) { formWrap.classList.add('hide'); doneWrap.classList.add('show'); return; }
+
         var name = (nameEl.value || '').trim();
         var email = (emailEl.value || '').trim().toLowerCase();
         var story = (storyEl.value || '').trim();
 
-        if (!name) return fail(nameEl, 'Please add your name.');
-        if (!EMAIL_RE.test(email) || email.length > 254) return fail(emailEl, 'Please enter a valid email.');
+        if (name.length < 2) return fail(nameEl, 'Please add your name.');
+        if (!validEmail(email)) return fail(emailEl, 'Please enter a valid email.');
         if (story.length < 10) return fail(storyEl, 'Tell us a little more (at least a sentence).');
+        if (story.length > 4000) return fail(storyEl, 'That’s a bit long — keep it under 4000 characters.');
 
         submitting = true;
         submitBtn.disabled = true;
