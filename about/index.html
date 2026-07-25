@@ -77,10 +77,10 @@
       color: var(--ink); text-wrap: balance;
     }
     .coldopen .intro {
-      margin: 16px auto 0; max-width: 36ch; text-align: left;
-      font-size: clamp(15px, 2vw, 16.5px); line-height: 1.65; color: var(--body);
+      margin: 16px auto 0; max-width: 34ch; text-align: center;
+      font-size: clamp(15px, 2vw, 16.5px); line-height: 1.65; color: var(--body); text-wrap: pretty;
     }
-    @media (min-width: 640px) { .coldopen .intro { max-width: 44ch; } }
+    @media (min-width: 640px) { .coldopen .intro { max-width: 46ch; } }
 
     /* ── Story ── */
     .story { margin: 0 auto; max-width: 38ch; padding: 32px 20px 48px; }
@@ -99,7 +99,7 @@
 
     /* ── Sign-off card ── */
     .signoff {
-      margin-top: 40px; border-radius: 16px; border: 1px solid var(--hair);
+      margin-top: 0; border-radius: 16px; border: 1px solid var(--hair);
       background: var(--card); padding: 20px;
       box-shadow: 0 20px 44px -24px rgba(0,0,0,.7);
     }
@@ -107,7 +107,9 @@
     .signoff img { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex: none; }
     .signoff .name { font-size: 18px; font-weight: 640; letter-spacing: -0.01em; line-height: 1; color: var(--ink); }
     .signoff .role { margin-top: 5px; font-size: 12.5px; color: var(--muted); }
-    .signoff .links { margin-top: 16px; border-top: 1px solid var(--hair); padding-top: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .signoff .lead { margin-top: 14px; font-size: 13.5px; line-height: 1.55; color: rgba(237,238,240,.72); }
+    .signoff .links { margin-top: 14px; border-top: 1px solid var(--hair); padding-top: 14px; display: flex; align-items: center; gap: 8px; }
+    .signoff .dot { color: rgba(250,250,250,.28); }
     .signoff .li-link { font-size: 13px; font-weight: 640; color: var(--gold-txt); text-decoration: none; transition: color .15s; }
     .signoff .li-link:hover { color: #fff; }
     .story-btn {
@@ -199,18 +201,25 @@
     }
     .share-btn:hover { background: #000; }
     .share-btn:active { transform: scale(.98); }
+    .share-actions { display: flex; flex-direction: column; gap: 10px; max-width: 340px; margin: 0 auto; }
+    .share-actions .share-btn { width: 100%; }
+    .share-btn.ghost { background: transparent; color: #0D0D0D; border: 1.5px solid rgba(13,13,13,.28); }
+    .share-btn.ghost:hover { background: rgba(13,13,13,.05); }
 
-    /* ── CTA pair ── */
+    /* ── CTA pair (matches the home page button system) ── */
     .ctas { margin: 0 auto; max-width: 600px; display: flex; gap: 10px; padding: 20px 20px 8px; }
     .cta {
-      flex: 1; text-align: center; text-decoration: none; border-radius: 999px;
-      padding: 14px 10px; font-size: 13.5px; font-weight: 640; transition: background .16s, color .16s, border-color .16s;
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      text-align: center; text-decoration: none; border-radius: 999px;
+      padding: 14px 12px; font-size: 13.5px; font-weight: 640;
+      transition: filter .18s ease, background .18s, border-color .16s, box-shadow .18s;
     }
-    .cta.solid { background: #FAFAFA; color: #0D0D0D; }
-    .cta.solid:hover { background: rgba(250,250,250,.88); }
-    .cta.outline { border: 1.5px solid rgba(250,250,250,.5); color: var(--ink); }
-    .cta.outline:hover { border-color: #FAFAFA; background: rgba(255,255,255,.05); }
-    .cta .arw { display: inline-block; margin-left: 3px; }
+    .cta svg { width: 17px; height: 17px; flex: none; }
+    .cta.solid { color: #161311; background: linear-gradient(180deg, #EAD3A4 0%, #CBA671 100%); box-shadow: 0 12px 30px -14px rgba(184,135,58,.55); }
+    .cta.solid svg { fill: currentColor; opacity: .82; }
+    .cta.solid:hover { filter: brightness(1.05); box-shadow: 0 14px 34px -14px rgba(184,135,58,.7); }
+    .cta.outline { color: #f3ede3; border: 1.5px solid rgba(224,199,154,.42); }
+    .cta.outline:hover { border-color: rgba(224,199,154,.85); background: rgba(224,199,154,.07); }
 
     /* ── Talk to me ── */
     .talk { margin: 0 auto; max-width: 600px; padding: 24px 20px 56px; text-align: center; }
@@ -221,10 +230,14 @@
     .talk .contact a:hover { color: #fff; }
     .talk .contact .dot { margin: 0 8px; color: rgba(250,250,250,.28); }
 
-    /* ── Footer ── */
-    footer { border-top: 1px solid var(--hair); padding: 22px 20px; text-align: center; }
-    footer .f-brand { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
-    footer .f-copy { margin-top: 4px; font-size: 12px; color: var(--muted); }
+    /* ── Footer (matches the home page) ── */
+    footer { border-top: 1px solid var(--hair); padding: 26px 20px 34px; text-align: center; }
+    footer .f-brand { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
+    footer .f-copy { margin-top: 5px; font-size: 12.5px; color: var(--muted); }
+    footer .f-links { margin-top: 12px; font-size: 12.5px; font-weight: 640; color: var(--gold-txt); }
+    footer .f-links a { text-decoration: none; transition: color .15s; }
+    footer .f-links a:hover { color: #fff; }
+    footer .f-links .dot { margin: 0 8px; color: rgba(250,250,250,.28); }
 
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
@@ -278,10 +291,10 @@
     </p>
     <p>I called the number on the sign.</p>
 
-    <blockquote>&ldquo;What do you do?&rdquo; I asked.<br />&ldquo;I&rsquo;m a pro.&rdquo;</blockquote>
+    <blockquote>&ldquo;What do you do?&rdquo; I asked.<br />&ldquo;I&rsquo;m a handyman.&rdquo;</blockquote>
 
     <p>
-      A handyman. He could fix, hang, build — anything around a house. And I
+      He could fix, hang, build — anything around a house. And I
       had IKEA curtain rods in a box, no drill, and bare windows. I gave him
       my address.
     </p>
@@ -320,7 +333,7 @@
     <p>
       Taskly is that phone call, made repeatable. You post what you need.
       Someone nearby — interviewed, reviewed, paid safely — says
-      &ldquo;I&rsquo;m a pro.&rdquo; Your money is held by Taskly and released
+      &ldquo;I can help.&rdquo; Your money is held by Taskly and released
       when the work is done. One side gets relief. The other gets dignity.
       Both get the thing they were actually missing.
     </p>
@@ -328,8 +341,28 @@
       P.S. — I still have his number. He lives close by. His seat on Taskly
       is the next call I make.
     </p>
+  </section>
 
-    <!-- Sign-off -->
+  <!-- Share block -->
+  <section class="block">
+    <div class="share-card">
+      <h2>Stories are how change travels.</h2>
+      <p>If this one moved you, send it to one person — someone with a to-do list, or someone with a skill and no door to knock on.</p>
+      <div class="share-actions">
+        <button class="share-btn" id="shareBtn" type="button">Share Taskly</button>
+        <button class="share-btn ghost" id="openStory" type="button">Tell me your story</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA pair — both open WhatsApp -->
+  <section class="ctas">
+    <a class="cta solid" href="https://wa.me/14379707070?text=Hi%20Taskly!%20I%20want%20to%20post%20a%20task%3A%20" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Post a task</a>
+    <a class="cta outline" href="https://wa.me/14379707070?text=Hi%20Taskly!%20I%20read%20your%20story%20and%20would%20love%20to%20connect." target="_blank" rel="noopener noreferrer">One-to-one</a>
+  </section>
+
+  <!-- Founder card — the single "reach me" box (below the CTA pair) -->
+  <section class="block" style="padding-top:16px; padding-bottom:56px;">
     <div class="signoff">
       <div class="row">
         <img src="data:image/jpeg;base64,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" alt="Mohit Mittal, founder of Taskly" />
@@ -338,43 +371,19 @@
           <p class="role">Founder, Taskly</p>
         </div>
       </div>
+      <p class="lead">Investors, journalists, kind humans — I read everything.</p>
       <div class="links">
+        <a class="li-link" href="mailto:care@taskly.ca">Email</a>
+        <span class="dot" aria-hidden="true">·</span>
         <a class="li-link" href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <button class="story-btn" id="openStory" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          Post your story
-        </button>
       </div>
     </div>
   </section>
 
-  <!-- Share block -->
-  <section class="block">
-    <div class="share-card">
-      <h2>Stories are how change travels.</h2>
-      <p>If this one moved you, send it to one person — someone with a to-do list, or someone with a skill and no door to knock on.</p>
-      <button class="share-btn" id="shareBtn" type="button">Share this story</button>
-    </div>
-  </section>
-
-  <!-- CTA pair -->
-  <section class="ctas">
-    <a class="cta solid" href="https://taskly.ca/post-task">Post a task <span class="arw">→</span></a>
-    <a class="cta outline" href="https://taskly.ca/onboarding/tasker">Want to earn</a>
-  </section>
-
-  <!-- Talk to me -->
-  <section class="talk">
-    <span class="eyebrow">Talk to me</span>
-    <p class="lead">Investors, journalists, kind humans — I read everything.</p>
-    <p class="contact">
-      <a href="https://www.linkedin.com/in/mttlmht/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </p>
-  </section>
-
   <footer>
     <div class="f-brand">taskly</div>
-    <div class="f-copy">The quiet confidence that it's handled.</div>
+    <div class="f-copy">The quiet confidence that it&rsquo;s handled.</div>
+    <div class="f-links"><a href="https://wa.me/14379707070?text=Hi%20Taskly!%20I%20want%20to%20post%20a%20task%3A%20" target="_blank" rel="noopener noreferrer">Post a task</a><span class="dot">·</span><a href="https://wa.me/14379707070?text=Hi%20Taskly!%20I%20want%20to%20earn%20as%20a%20tasker." target="_blank" rel="noopener noreferrer">Become a tasker</a></div>
   </footer>
 
   <!-- Post-your-story modal -->
@@ -386,8 +395,8 @@
       </button>
 
       <div class="story-form" id="storyForm">
-        <h2 id="storyTitle">Share your story</h2>
-        <p class="sub">A line, a paragraph, whatever you&rsquo;ve got — someone with a to-do list, or a skill and no door to knock on. We read everything.</p>
+        <h2 id="storyTitle">Tell me your story</h2>
+        <p class="sub">A line or a paragraph — your story, a skill you&rsquo;d like to earn with, or a note about working together. I read every one.</p>
         <form class="form" id="storyFormEl" novalidate>
           <div>
             <label for="sName">Your name</label>
@@ -398,12 +407,12 @@
             <input type="email" id="sEmail" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" maxlength="254" />
           </div>
           <div>
-            <label for="sStory">Your story</label>
-            <textarea id="sStory" name="story" placeholder="Tell us what happened…" maxlength="4000"></textarea>
+            <label for="sStory">Your message</label>
+            <textarea id="sStory" name="story" placeholder="Anything at all — your story, a skill you&rsquo;d like to earn with on Taskly, or why you&rsquo;d like to work together…" maxlength="4000"></textarea>
           </div>
           <input class="hp" type="text" id="sHp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <p class="err" id="sErr" role="alert"></p>
-          <button class="story-submit" id="sSubmit" type="submit">Send story</button>
+          <button class="story-submit" id="sSubmit" type="submit">Send my story</button>
         </form>
       </div>
 
@@ -413,7 +422,7 @@
           <path class="succ-m" d="M15 27l7 7 15-16"/>
         </svg>
         <h2 style="margin-bottom:8px;">Thank you.</h2>
-        <p class="msg">We&rsquo;ve got your story — and we read every one.</p>
+        <p class="msg">I&rsquo;ve got it — and I read every one.</p>
         <button class="close2" id="storyDoneClose" type="button">Close</button>
       </div>
     </div>
@@ -442,7 +451,7 @@
         try {
           await navigator.clipboard.writeText(url);
           shareBtn.textContent = 'Link copied ✓';
-          setTimeout(function () { shareBtn.textContent = 'Share this story'; }, 2000);
+          setTimeout(function () { shareBtn.textContent = 'Share Taskly'; }, 2000);
         } catch (e) {}
       });
 
@@ -500,7 +509,7 @@
 
         if (name.length < 2) return fail(nameEl, 'Please add your name.');
         if (!validEmail(email)) return fail(emailEl, 'Please enter a valid email.');
-        if (story.length < 10) return fail(storyEl, 'Tell us a little more (at least a sentence).');
+        if (story.length < 10) return fail(storyEl, 'Tell me a little more (at least a sentence).');
         if (story.length > 4000) return fail(storyEl, 'That’s a bit long — keep it under 4000 characters.');
 
         submitting = true;
