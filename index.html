@@ -11,7 +11,7 @@
   <meta property="og:description" content="Even Taskly takes a Sunday. We'll be back before yours." />
   <meta property="og:site_name" content="Taskly" />
   <meta name="twitter:card" content="summary_large_image" />
-  <script>try{var d=document.documentElement;if(localStorage.getItem('taskly-theme')==='light')d.classList.remove('dark');if(sessionStorage.getItem('taskly-splash-seen'))d.classList.add('no-splash');else sessionStorage.setItem('taskly-splash-seen','1');}catch(e){}</script>
+  <script>try{var d=document.documentElement;if(localStorage.getItem('taskly-theme')==='light')d.classList.remove('dark');if(localStorage.getItem('taskly-splash-seen'))d.classList.add('no-splash');else localStorage.setItem('taskly-splash-seen','1');}catch(e){d.classList.add('no-splash');}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
