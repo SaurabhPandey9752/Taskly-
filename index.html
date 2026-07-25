@@ -11,7 +11,7 @@
   <meta property="og:description" content="Even Taskly takes a Sunday. We'll be back before yours." />
   <meta property="og:site_name" content="Taskly" />
   <meta name="twitter:card" content="summary_large_image" />
-  <script>try{if(localStorage.getItem('taskly-theme')==='light')document.documentElement.classList.remove('dark');}catch(e){}</script>
+  <script>try{var d=document.documentElement;if(localStorage.getItem('taskly-theme')==='light')d.classList.remove('dark');if(sessionStorage.getItem('taskly-splash-seen'))d.classList.add('no-splash');else sessionStorage.setItem('taskly-splash-seen','1');}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
@@ -119,6 +119,7 @@
     .splash-div { display: block; width: 52px; height: 1px; margin: 20px 0; background: rgba(184,135,58,.42); animation-delay: .12s; }
     .splash-tag { font-size: clamp(19px, 3vw, 23px); font-weight: 500; letter-spacing: -0.01em; color: rgba(244,242,237,.82); text-align: center; line-height: 1.45; animation-delay: .2s; }
     .splash.gone { display: none; }
+    html.no-splash .splash { display: none !important; }
     @keyframes splashOut { 0%, 62% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.06); visibility: hidden; } }
     @keyframes splashItem { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion: reduce) {
@@ -187,12 +188,8 @@
         setTheme(root.classList.contains('dark') ? 'light' : 'dark');
       });
 
-      // ── Splash: play once per session, then remove ──
+      // ── Splash: cleanup after the reveal (once-per-session gating is in <head>) ──
       var splash = document.getElementById('splash');
-      try {
-        if (sessionStorage.getItem('taskly-splash-seen')) { splash.style.animation = 'none'; splash.classList.add('gone'); }
-        else { sessionStorage.setItem('taskly-splash-seen', '1'); }
-      } catch (e) {}
       splash.addEventListener('animationend', function (e) { if (e.animationName === 'splashOut') splash.classList.add('gone'); });
     })();
   </script>
