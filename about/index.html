@@ -6,6 +6,17 @@
   <title>Our story — why Taskly exists</title>
   <meta name="description" content="The sign said &quot;Will work for money.&quot; A drive-through, a phone call, sixty dollars, and the company it built. The story behind Taskly, from its founder." />
   <script>try{if(localStorage.getItem('taskly-theme')==='light')document.documentElement.classList.remove('dark');}catch(e){}</script>
+
+  <!-- Google tag (gtag.js) — GA4 property "Taskly Holding Page" (taskly.ca).
+       Same measurement id as the holding page so both pages share one dataset. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BFLDXKJ7TZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BFLDXKJ7TZ');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600&display=swap" rel="stylesheet" />
@@ -582,6 +593,9 @@
             body: JSON.stringify({ name: name, email: email, story: story, _subject: 'New Taskly story submission' })
           });
           if (!res.ok) throw new Error('bad response');
+          // Fire only on a CONFIRMED Formspree success — not on submit-attempt,
+          // and never on the honeypot branch above (that path is a bot).
+          if (typeof gtag === 'function') gtag('event', 'story_submit', { page_area: 'about' });
           formWrap.classList.add('hide');
           doneWrap.classList.add('show');
           setTimeout(function () { doneCloseBtn.focus(); }, 60);
@@ -597,6 +611,38 @@
       [nameEl, emailEl, storyEl].forEach(function (el) {
         el.addEventListener('input', function () { el.classList.remove('err-field'); errEl.textContent = ''; });
       });
+    })();
+  </script>
+
+  <script>
+    // ── GA4 interaction tracking (about / our story) ─────────────────────────
+    // Click handlers only. `story_submit` fires from the Formspree success
+    // branch above, so it counts real submissions rather than button presses.
+    (function () {
+      function send(name, params) {
+        if (typeof gtag !== 'function') return;
+        gtag('event', name, Object.assign({ page_area: 'about' }, params || {}));
+      }
+      function on(sel, name, params) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          el.addEventListener('click', function () { send(name, params); });
+        });
+      }
+
+      // Conversions — the WhatsApp CTAs at the end of the story and in the footer.
+      on('a.cta.solid[href*="wa.me"]', 'cta_post_task', { link_location: 'story_end', channel: 'whatsapp' });
+      on('footer .f-links a[href*="post%20a%20task"]', 'cta_post_task', { link_location: 'footer', channel: 'whatsapp' });
+      on('footer .f-links a[href*="earn%20as%20a%20tasker"]', 'cta_become_tasker', { link_location: 'footer', channel: 'whatsapp' });
+      on('a.cta.outline[href*="wa.me"]', 'cta_one_to_one', { link_location: 'story_end', channel: 'whatsapp' });
+
+      // Story-submission funnel: open the modal → (success) → story_submit.
+      on('#openStory', 'story_open');
+
+      // Engagement.
+      on('#shareBtn', 'share_click');
+      on('a.li-link[href*="linkedin"]', 'outbound_linkedin');
+      on('a.li-link[href^="mailto:"]', 'outbound_email');
+      on('#themeToggle', 'theme_toggle');
     })();
   </script>
 </body>

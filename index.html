@@ -12,6 +12,19 @@
   <meta property="og:site_name" content="Taskly" />
   <meta name="twitter:card" content="summary_large_image" />
   <script>try{if(localStorage.getItem('taskly-theme')==='light')document.documentElement.classList.remove('dark');}catch(e){}</script>
+
+  <!-- Google tag (gtag.js) — GA4 property "Taskly Holding Page" (taskly.ca).
+       Separate property from the main app (tasklyanything.ca/.in/.ai) on purpose:
+       the app's /admin/traffic dashboard filters markets by hostName and drops
+       taskly.ca as a legacy host, so mixing them would inflate its totals. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BFLDXKJ7TZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BFLDXKJ7TZ');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
@@ -250,6 +263,39 @@
         // absolute safety: never let the splash linger
         setTimeout(function () { splash.classList.add('gone'); }, 5500);
       }
+    })();
+  </script>
+
+  <script>
+    // ── GA4 interaction tracking (holding page) ──────────────────────────────
+    // Selector-driven so the markup above stays untouched. Every handler is a
+    // no-op until gtag.js loads, so an ad-blocked or offline visitor never sees
+    // an error and the links keep working normally.
+    (function () {
+      function send(name, params) {
+        if (typeof gtag !== 'function') return;
+        gtag('event', name, Object.assign({ page_area: 'home' }, params || {}));
+      }
+      function on(sel, name, params) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          el.addEventListener('click', function () { send(name, params); });
+        });
+      }
+
+      // Primary conversion — the WhatsApp "Post a task" CTA. target="_blank"
+      // keeps this page alive, so the beacon always makes it out.
+      on('.hero a.btn-gold[href*="wa.me"]', 'cta_post_task', { link_location: 'hero', channel: 'whatsapp' });
+
+      // Supply side — footer "Become a tasker".
+      on('footer .f-links a[href*="earn%20as%20a%20tasker"]', 'cta_become_tasker', { link_location: 'footer', channel: 'whatsapp' });
+
+      // Story funnel — two entry points, kept separate so we can see which pulls.
+      on('.hero a.btn-ghost[href="about/"]', 'cta_read_story', { link_location: 'hero' });
+      on('.topbar a.story-link[href="about/"]', 'cta_read_story', { link_location: 'nav' });
+      on('footer .f-links a[href="about/"]', 'cta_read_story', { link_location: 'footer' });
+
+      // Engagement signal, not a conversion.
+      on('#themeToggle', 'theme_toggle');
     })();
   </script>
 </body>
