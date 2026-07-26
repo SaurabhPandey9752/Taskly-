@@ -48,8 +48,7 @@
       font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--surface); color: var(--text);
       -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-      position: fixed; inset: 0; overflow: hidden; overscroll-behavior: none;
-      display: flex; flex-direction: column;
+      position: fixed; inset: 0; overflow: hidden;
       transition: background .3s ease, color .3s ease;
     }
     body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--glow); transition: background .3s ease; }
@@ -57,11 +56,13 @@
     .eyebrow { font-family: "Plus Jakarta Sans", sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .22em; line-height: 1; color: var(--muted); }
     .eyebrow.gold { color: var(--gold-txt); }
 
-    main { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+    /* Hero centers in the full viewport; header + footer overlay it. main scrolls
+       internally on short screens (so nothing clips, and iOS stays stable). */
+    main { position: absolute; inset: 0; display: flex; overflow-y: auto; overscroll-behavior: none; -webkit-overflow-scrolling: touch; padding: 74px 0 104px; }
     section { max-width: 600px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
 
     /* ── Top brand — logo left · Our story center · toggle right (full width) ── */
-    .topbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; padding: 16px clamp(16px, 5vw, 28px) 0; }
+    .topbar { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; padding: 16px clamp(16px, 5vw, 28px); }
     .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; justify-self: start; }
     .brand .logo { height: 26px; width: auto; display: block; }
     html:not(.dark) .brand .logo, html:not(.dark) .f-logo img { filter: invert(1); }
@@ -89,7 +90,7 @@
     .btn-ghost:hover { border-color: rgba(184,135,58,.85); background: rgba(184,135,58,.07); }
 
     /* ── Hero ── */
-    .hero { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 20px 28px; text-align: center; }
+    .hero { margin: auto; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 24px 20px; text-align: center; }
     .headline { font-size: clamp(18px, 5.2vw, 34px); font-weight: 700; line-height: 1.14; letter-spacing: -0.03em; }
     .headline .l1 { color: var(--l1); }
     .headline .l2 { background: var(--l2grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold-txt); }
@@ -99,7 +100,7 @@
     .trust { margin-top: 18px; font-size: 12.5px; line-height: 1.55; color: var(--trust); max-width: 42ch; margin-left: auto; margin-right: auto; }
 
     /* ── Footer ── */
-    footer { border-top: 1px solid var(--hair); margin-top: 8px; padding: 26px 20px 34px; text-align: center; }
+    footer { position: absolute; bottom: 0; left: 0; right: 0; z-index: 5; background: var(--surface); border-top: 1px solid var(--hair); padding: 22px 20px 26px; text-align: center; }
     footer .f-logo { display: inline-flex; align-items: center; gap: 8px; }
     footer .f-logo img { height: 20px; width: auto; display: block; }
     footer .f-brand { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-strong); }
