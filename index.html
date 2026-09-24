@@ -94,18 +94,15 @@
     .nav-links { display: inline-flex; align-items: center; }
     .nav-links .story-link { padding: 8px 10px; }
     .nav-dot { color: var(--gold-txt); opacity: .5; font-size: 13.5px; font-weight: 600; }
-    /* The topbar is a 1fr auto 1fr grid, so the brand (~123px) mirrors into both
-       outer columns and leaves the centre only ~78px at 360px wide — nowhere near
-       the ~216px both links need. Below 560px give the nav its own full-width
-       row instead, so both stay visible at full size. */
+    /* 1fr auto 1fr mirrors the brand (~123px) into both outer columns, leaving
+       the centre ~78px at 360px — too little for the CTA. On mobile drop the
+       mirroring (auto 1fr auto) and show the CTA alone, which fits on one row
+       with the brand and toggle down to 320px. */
     @media (max-width: 560px) {
-      .topbar { grid-template-columns: 1fr auto; grid-template-areas: "brand toggle" "nav nav"; row-gap: 2px; }
-      .brand { grid-area: brand; }
-      .nav-links { grid-area: nav; justify-self: center; }
-      .theme-toggle { grid-area: toggle; }
-      /* Mobile nav carries the CTA only. */
+      .topbar { grid-template-columns: auto 1fr auto; }
+      .nav-links { justify-self: center; }
+      .nav-links .story-link { padding: 8px 7px; }
       .nav-links .story-link:not(.nav-tasker), .nav-links .nav-dot { display: none; }
-      main { padding-top: 106px; }   /* header is two rows now */
     }
     .theme-toggle { justify-self: end; }
     /* theme toggle */
