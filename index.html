@@ -103,6 +103,8 @@
       .brand { grid-area: brand; }
       .nav-links { grid-area: nav; justify-self: center; }
       .theme-toggle { grid-area: toggle; }
+      /* Mobile nav carries the CTA only. */
+      .nav-links .story-link:not(.nav-tasker), .nav-links .nav-dot { display: none; }
       main { padding-top: 106px; }   /* header is two rows now */
     }
     .theme-toggle { justify-self: end; }
@@ -239,8 +241,6 @@
       <div class="f-social">
         <a href="https://www.instagram.com/tasklyanything.ca" target="_blank" rel="noopener noreferrer" aria-label="Instagram — @tasklyanything.ca" title="Instagram — @tasklyanything.ca"><svg viewBox="2 2 20 20" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2ZM12 7.35a4.65 4.65 0 1 0 0 9.3 4.65 4.65 0 0 0 0-9.3ZM12 8.95a3.05 3.05 0 1 1 0 6.1 3.05 3.05 0 0 1 0-6.1ZM17.65 5.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"/></svg></a>
         <a href="https://www.facebook.com/profile.php?id=61593697331123" target="_blank" rel="noopener noreferrer" aria-label="Facebook — Taskly" title="Facebook — Taskly"><svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
-        <a href="https://www.linkedin.com/company/tasklycanada" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — Taskly Canada" title="LinkedIn — Taskly Canada"><svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="https://x.com/TasklyAnything" target="_blank" rel="noopener noreferrer" aria-label="X — @TasklyAnything" title="X — @TasklyAnything"><svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
       </div>
     </div>
   </footer>
@@ -353,8 +353,6 @@
       on('footer .f-crumb', 'outbound_breadcrumb', { link_location: 'footer' });
       on('footer .f-social a[href*="instagram.com"]', 'outbound_social', { link_location: 'footer', network: 'instagram' });
       on('footer .f-social a[href*="facebook.com"]',  'outbound_social', { link_location: 'footer', network: 'facebook' });
-      on('footer .f-social a[href*="linkedin.com"]',  'outbound_social', { link_location: 'footer', network: 'linkedin' });
-      on('footer .f-social a[href*="x.com"]',         'outbound_social', { link_location: 'footer', network: 'x' });
 
       // Engagement signal, not a conversion.
       on('#themeToggle', 'theme_toggle');
